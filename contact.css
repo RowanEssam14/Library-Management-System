@@ -1,0 +1,191 @@
+:root {
+    scroll-behavior: smooth;
+  }
+  
+  html,body {
+    
+    margin: 0;
+    padding: 0;
+    /* background-color: #fff; */
+    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    /* font-weight: 300;
+    font-size: 20px; */
+    text-rendering: optimizeLegibility;
+    
+    
+  }
+  /*--------------------------------------------------------------
+  # Navbar
+  --------------------------------------------------------------*/
+  .navbar{
+    background-color: #e1dad2;
+  
+  }
+  div.container-fluid{
+    padding:0px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  div#navbarSupportedContent{
+    padding-left: 10px;
+    padding-right: 50px;
+  }
+  .navbar ul li {
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .navbar img{
+    width: 34px;
+    height:43px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .navbar-brand {
+    font-family: 'Montserrat';
+    font-size: larger;
+    font-weight: 700;
+    padding-left:35px;
+  }
+  .navbar button.navbar-toggler{
+  margin-right: 25px;
+  padding:4px 4px;
+  }
+  .dropdown-menu{
+    min-width: 8.5rem;
+  }
+  /*--------------------------------------------------------------
+  # Contact
+  --------------------------------------------------------------*/
+  
+  .contact{
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+  }
+  .contact .row {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 102%;
+    padding: 50px;
+  }
+  .contact .col-md-6{
+    align-self: center;
+    text-align: center;
+    padding: 0;
+  }
+  .contact h2 {
+    font-size: 32px;
+    color: #2d3c1f;
+    font-weight: 300;
+  
+    
+  }
+  
+  .contact h4 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  @media (max-width : 768px){
+    .contact #contact-info{
+      margin-top: 100px;
+    }
+  }
+  .contact .list-group-item{
+    padding: 4px 14px;
+  }
+  
+  .contact .contact-list{
+  
+    list-style-type: none;
+  }
+  .contact li{
+    text-align: center;
+    background-color: transparent;
+    border-style: none;
+  }
+  .contact li:before{
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  .contact li::before {
+    position: relative;
+    font-family: 'Font Awesome 5 free';
+    font: var(--fa-solid fa-leaf);
+    content: "\f06c";
+    font-weight: 900;
+    margin:0 5px 0 -15px;
+    color: #727c57;
+    
+  } 
+  .container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 62.5%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  }
+  
+  /* Then style the iframe to fit in the container div with full height and width */
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px 65px;
+  }
+  
+  /*--------------------------------------------------------------
+  # Footer
+  --------------------------------------------------------------*/
+  
+  footer {
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #e1dad2;
+  
+  
+  }
+  footer a{
+    text-decoration: none;
+    color:#2d3c1f
+  }
+  footer div.container{
+    padding-left: 100px;
+    padding-right: 100px;
+    padding: 30px 0px 30px 0px;
+  }
+  
+  footer .col-sm-12{
+    display:flex;
+    justify-content: center ;
+  }
+  footer .col-sm-12#secondcol{
+    align-items: center;
+    flex-direction: column;
+  }
+  @media (min-width: 768px) {
+    footer .col-md-4#firstcol {
+      justify-content: left;
+    }
+    footer .col-md-4#thirdcol {
+      justify-content: right;
+    }
+  }
+  footer #brand-icon{
+    height: 48px;
+  }
+  footer #brand-name{
+    color:#161515;
+  }
