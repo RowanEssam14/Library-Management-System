@@ -10,6 +10,12 @@ const port = 3300;
 // Setting the view engine to EJS
 app.set('view engine', 'ejs');
 
+//importing the necessary path module from nodejs
+const path = require('path');
+
+//specifying the static files directory
+app.use(express.static('public'));
+
 // Create a MySQL connection
 const connection = mysql.createConnection({
   host: 'localhost',
