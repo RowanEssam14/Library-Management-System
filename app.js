@@ -30,16 +30,6 @@ connection.connect((err) => {
   console.log('Connected to the MySQL database.');
 });
 
-
-
-// // Query to insert a new record into the 'author' table
-// const author = { first_name: 'Sean', middle_name:'N/A', last_name:'Covey', specialization:null };
-// connection.query('INSERT INTO author SET ?', author, (error, results, fields) => {
-//   if (error) throw error;
-//   console.log('New record inserted successfully into the author table.');
-//   console.log(results);
-// });
-
 // Define a route to fetch books data from the database
 app.get('/books', function(req, res) {
   connection.query('SELECT * FROM book', function(error, results, fields) {

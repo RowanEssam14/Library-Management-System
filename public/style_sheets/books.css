@@ -16,6 +16,16 @@ html,body {
   
 }
 /*--------------------------------------------------------------
+# hero
+--------------------------------------------------------------*/
+/* .hero{  
+  height: 100vh;
+  background-position: center;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat; 
+} */
+/*--------------------------------------------------------------
 # Navbar
 --------------------------------------------------------------*/
 .navbar{
@@ -59,8 +69,35 @@ padding:4px 4px;
 }
 
 /*--------------------------------------------------------------
-# Container
+# Search bar
 --------------------------------------------------------------*/
-div.container{
-  margin:130px;
+.container.search-bar{
+  margin-top: 140px;
 }
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.input-group {
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-bar .btn-outline-secondary {
+ border-radius: 0px !important;
+ border: 1px solid #ced4da;
+}
+
+.dropdown-menu {
+  min-width: 0;
+}
+.search-bar #searchButton{
+  border-radius: 0px;
+  background-color: #727c57;
+  color: white;
+  padding: 7.5px 20px;
+}
+/*--------------------------------------------------------------
+# Search bar
+--------------------------------------------------------------*/
