@@ -98,6 +98,92 @@ padding:4px 4px;
   color: white;
   padding: 7.5px 20px;
 }
+
 /*--------------------------------------------------------------
-# Search bar
+# Books Carousel
 --------------------------------------------------------------*/
+.book.container-fluid {
+  
+}
+
+
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-item img {
+  max-height: px;
+  
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  font-size: 30px;
+}
+
+/* Style the book images */
+#bookCarousel img {
+  height: 300px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Style the carousel arrows */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100%;
+  transform: translateY(0);
+  top: 0;
+  left: 50%;
+  margin-top: -22.5px;
+  font-size: 45px;
+}
+
+.carousel-control-prev-icon {
+  margin-left: -15px;
+}
+
+.carousel-control-next-icon {
+  margin-right: -15px;
+}
+
+/* Disable carousel indicators */
+.carousel-indicators {
+  display: none;
+}
+
+/* Media queries for responsive design */
+@media (min-width: 768px) {
+  #bookCarousel {
+    margin-left: auto 50px;
+    margin-right: auto 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  #bookCarousel {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  #bookCarousel {
+    max-width: 1000px;
+    margin-left: 50px auto;
+    margin-right: 50px auto;
+  }
+}
