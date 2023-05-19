@@ -113,10 +113,10 @@ padding:4px 4px;
 }
 
 .carousel-item img {
-  max-height: px;
-  
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
-
 .carousel-control-prev,
 .carousel-control-next {
   width: 5%;

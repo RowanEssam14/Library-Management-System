@@ -86,7 +86,7 @@
 
 
 
-<div class="container books-table">
+<div class="container books-table mb-5">
   <h1>Books</h1>
   <table>
     <thead>
@@ -118,7 +118,7 @@
             <div class="row">
               <% for(var j=i; j<i+4 && j<books.length; j++) { %>
                 <div class="col-md-3">
-                  <img src="<%= books[j].file_path %>" class="d-block w-100" alt="Book Image">
+                  <img src="<%= books[j].file_path %>" class="d-block mx-auto img-fluid book-image" alt="Book Image">
                 </div>
               <% } %>
             </div>
@@ -135,6 +135,7 @@
       </a>
     </div>
   </div>
+  
   
   
 
