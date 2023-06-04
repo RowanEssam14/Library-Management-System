@@ -84,8 +84,6 @@
   </div>
 
 
-
-
 <div class="container books-table mb-5">
   <h1>Books</h1>
   <table>
@@ -110,33 +108,34 @@
   </table>
   </div>
 
-  <div class="book container-fluid">
-    <div id="bookCarousel" class="carousel  justify-content-center" data-ride="carousel">
-      <div class="carousel-inner">
-        <% for(var i=0; i<books.length; i+=4) { %>
-          <div class="carousel-item <%= i==0 ? 'active' : '' %>">
-            <div class="row">
-              <% for(var j=i; j<i+4 && j<books.length; j++) { %>
-                <div class="col-md-3">
-                  <img src="<%= books[j].file_path %>" class="d-block mx-auto img-fluid book-image" alt="Book Image">
-                </div>
-              <% } %>
-            </div>
+ <div class="book container-fluid">
+  <h1>All categories</h1>
+  <div id="bookCarousel" class="carousel" data-ride="carousel">
+    <div class="carousel-inner">
+      <% for(var i=0; i<books.length; i+=5) { %> <!-- Change the increment value to 5 -->
+        <div class="carousel-item <%= i==0 ? 'active' : '' %>">
+          <div class="row justify-content-center">
+            <% for(var j=i; j<i+5 && j<books.length; j++) { %> <!-- Change the condition to j<i+5 -->
+              <div class="col-md-2"> <!-- Adjust the column width to accommodate 5 items -->
+                <img src="<%= books[j].file_path %>" class="d-block mx-auto img-fluid book-image" alt="Book Image">
+              </div>
+            <% } %>
           </div>
-        <% } %>
-      </div>
-      <a class="carousel-control-prev" href="#bookCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#bookCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+        </div>
+      <% } %>
     </div>
+    <a class="carousel-control-prev"  href="#bookCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon "  aria-hidden="true"></span>
+      <span class="sr-only" >Previous</span>
+    </a>
+    <a class="arrow carousel-control-next" href="#bookCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-  
-  
+</div>
+<hr/>
+<hr/>
   
 
 
