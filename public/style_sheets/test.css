@@ -35,7 +35,7 @@ h2::after {
     /*text-align: center;*/
 	overflow: hidden;
 }
-.carousel .thumb-wrapper { /*card/container for each book*/
+.carousel .book-card { /*card/container for each book*/
 	padding: 25px 15px;
 	background: #fff;
 	border-radius: 6px;
@@ -43,7 +43,7 @@ h2::after {
 	position: relative;
 	box-shadow: 0 2px 3px rgba(0,0,0,0.2);
 }
-.carousel .item .img-box {
+.carousel .item .image-box {
 	height: 120px;
 	margin-bottom: 20px;
 	width: 100%;
@@ -65,7 +65,7 @@ h2::after {
 .carousel .item h4, .carousel .item p, .carousel .item ul {
 	margin-bottom: 5px;
 }
-.carousel .thumb-content .btn {
+.carousel .book-card .btn {
 	color: #7ac400;
     font-size: 11px;
     text-transform: uppercase;
@@ -77,12 +77,12 @@ h2::after {
     line-height: 16px;
     border-radius: 20px;
 }
-.carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+.carousel .card-content .btn:hover, .carousel .card-content .btn:focus {
 	color: #fff;
 	background: #7ac400;
 	box-shadow: none;
 }
-.carousel .thumb-content .btn i {
+.carousel .card-content .btn i {
 	font-size: 14px;
     font-weight: bold;
     margin-left: 5px;
@@ -112,14 +112,7 @@ h2::after {
 	text-shadow: none;
     font-weight: bold;
 }
-.carousel .item-price {
-	font-size: 13px;
-	padding: 2px 0;
-}
-.carousel .item-price strike {
-	opacity: 0.7;
-	margin-right: 5px;
-}
+
 .carousel .carousel-control.left i {
 	margin-left: -2px;
 }
@@ -141,23 +134,4 @@ h2::after {
 }
 .carousel-indicators li.active {	
 	background: rgba(0, 0, 0, 0.6);
-}
-.carousel .wish-icon {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	z-index: 99;
-	cursor: pointer;
-	font-size: 16px;
-	color: #abb0b8;
-}
-.carousel .wish-icon .fa-heart {
-	color: #ff6161;
-}
-.star-rating li {
-	padding: 0;
-}
-.star-rating i {
-	font-size: 14px;
-	color: #ffc000;
 }

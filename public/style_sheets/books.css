@@ -13,7 +13,8 @@ html,body {
    font-weight: 300;
   font-size: 20px; 
   text-rendering: optimizeLegibility;
-  
+  background-color: antiquewhite;
+ 
 }
 /*--------------------------------------------------------------
 # hero
@@ -29,7 +30,7 @@ html,body {
 # Navbar
 --------------------------------------------------------------*/
 .navbar{
-  background-color: #e1dad2;
+  background-color: #66523a;
 
 }
 div.container-fluid{
@@ -47,6 +48,9 @@ div#navbarSupportedContent{
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+.navbar .nav-link{
+  color:antiquewhite;
 }
 .navbar img{
   width: 34px;
@@ -102,24 +106,87 @@ padding:4px 4px;
 /*--------------------------------------------------------------
 # Books Carousel
 --------------------------------------------------------------*/
-.book.container-fluid {
+.book.container{
+  display: flex !important;
+  flex-direction: column;
+  align-items: center; /* horizontally center the child elements */
+  justify-content: center; /* vertically center the child elements */
+  max-width: 100%;
+  margin: 0px auto;
+  padding-top: 45px ;
+  padding-bottom: 165px;
+}
+.book.container.reverse-background{
+  background-color: #66523a;
+}
+.book.container.reverse-background h1{
+  color: antiquewhite;
+}
+.book.container h1{
+  padding-left: 30px;
+  padding-bottom: 15px;
+
+}
+
+
+#bookCarousel{
+  width: 100%;
+  max-width: 85% !important;
+}
+
+/* Style the book images */
+#bookCarousel img {
+  height: 155px;
+  object-fit: fill;
+  border:none;
+  border-radius: 2px;
+  margin-top: 30px;
+  width: auto;
+  max-width: 100%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   
 }
 
+.img-wrapper{
+  max-width: 100%;
+  height: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(#e1dad2 75%, transparent 25%);
+}
+.card .card-img-top  {
+  max-height: 90%;
+border: none !important;
+}
 
+@media (max-width: 767px) {
+.card .img-wrapper {
+  height: 17em;
+}
+}
+
+#bookCarousel .btn{
+  display: grid;
+  font-size: 15px;;
+  background-color: #727c57;
+  border-color:#727c57;
+  justify-content: center;
+  margin-bottom: 5px;
+}
 
 .carousel-item {
   text-align: center;
+  width: 100%; /* Adjust the width of the items as needed */
+  max-width: none; /* Remove the max-width property */
 }
 
-.carousel-item img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
+
+
 .carousel-control-prev,
 .carousel-control-next {
   width: 5%;
+  
 }
 
 .carousel-control-prev-icon,
@@ -127,63 +194,86 @@ padding:4px 4px;
   font-size: 30px;
 }
 
-/* Style the book images */
+/* Style the book images ??
 #bookCarousel img {
   height: 300px;
   object-fit: cover;
   border: 1px solid #ddd;
   border-radius: 5px;
-}
+}*/
 
-/* Style the carousel arrows */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%;
+    height: 44px;
+    width: 40px;
+    background-color: #727c57;
+    margin: auto 0;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: #727c57;
+    opacity: 1;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  height: 100%;
-  transform: translateY(0);
-  top: 0;
-  left: 50%;
-  margin-top: -22.5px;
-  font-size: 45px;
+    font-size: 36px;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    margin-top: -18px;
+    z-index: 5;
+    color: #fff;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
 }
 
 .carousel-control-prev-icon {
-  margin-left: -15px;
+    margin-left: -2px;
 }
 
 .carousel-control-next-icon {
-  margin-right: -15px;
+    margin-right: -4px;
 }
+
 
 /* Disable carousel indicators */
 .carousel-indicators {
   display: none;
 }
 
-/* Media queries for responsive design */
-@media (min-width: 768px) {
-  #bookCarousel {
-    margin-left: auto 50px;
-    margin-right: auto 50px;
-  }
-}
 
-@media (min-width: 992px) {
-  #bookCarousel {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 
-@media (min-width: 1200px) {
-  #bookCarousel {
-    max-width: 1000px;
-    margin-left: 50px auto;
-    margin-right: 50px auto;
-  }
+h1 {
+	color: #000;
+	font-size: 50px;
+	font-weight: 900;
+  
+	text-align: center;
+	position: relative;
+	margin: 30px 0 60px;
+  font-family: 'Noto Serif', serif;
+}
+h1::after {
+	content: "";
+	width: 100px;
+	position: absolute;
+	margin: 0 auto;
+	height: 4px;
+	border-radius: 1px;
+	background: #727c57;
+	left: 0;
+	right: 0;
+	bottom: -20px;
 }
