@@ -10,7 +10,7 @@ html,body {
   color: #555;
   font-family: 'Montserrat', sans-serif;
   
-   font-weight: 300;
+  font-weight: 300;
   font-size: 20px; 
   text-rendering: optimizeLegibility;
   background-color: antiquewhite;
@@ -33,6 +33,8 @@ html,body {
   background-color: #66523a;
 
 }
+
+
 div.container-fluid{
   padding:0px;
   width: 100%;
@@ -48,6 +50,7 @@ div#navbarSupportedContent{
   display: flex;
   justify-content: space-between;
   width: 100%;
+  color:antiquewhite;
 }
 .navbar .nav-link{
   color:antiquewhite;
@@ -57,12 +60,14 @@ div#navbarSupportedContent{
   height:43px;
   margin-left: 15px;
   margin-right: 15px;
+  color:antiquewhite;
 }
 .navbar-brand {
   font-family: 'Montserrat';
   font-size: larger;
   font-weight: 700;
   padding-left:35px;
+  color: antiquewhite;
 }
 .navbar button.navbar-toggler{
 margin-right: 25px;
@@ -115,6 +120,8 @@ padding:4px 4px;
   margin: 0px auto;
   padding-top: 45px ;
   padding-bottom: 165px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .book.container.reverse-background{
   background-color: #66523a;
@@ -122,12 +129,33 @@ padding:4px 4px;
 .book.container.reverse-background h1{
   color: antiquewhite;
 }
-.book.container h1{
-  padding-left: 30px;
-  padding-bottom: 15px;
+ h1{
+  
+    color: #000000ba;
+    font-size: 60px;
+    font-weight: 900;
+    font-style: italic;
+    padding-bottom: 0px;
+    text-align: center;
+    position: relative;
+    margin: 30px 0 60px;
+    font-family: 'Noto Serif', serif;
 
 }
 
+h1::after {
+	content: "";
+	width: 183px;
+	position: absolute;
+	margin: 0 auto;
+	height: 4px;
+	border-radius: 1px;
+	background: #727c57;
+	left: 0;
+	right: 0;
+	bottom: -20px;
+  margin: auto;
+}
 
 #bookCarousel{
   width: 100%;
@@ -164,6 +192,12 @@ border: none !important;
 .card .img-wrapper {
   height: 17em;
 }
+}
+#bookCarousel h5{
+  font-size: 16.5px;
+  font-style: italic;
+  font-weight: 600;
+  font-family: 'DM Serif Display', serif;
 }
 
 #bookCarousel .btn{
@@ -255,25 +289,3 @@ border: none !important;
 
 
 
-h1 {
-	color: #000;
-	font-size: 50px;
-	font-weight: 900;
-  
-	text-align: center;
-	position: relative;
-	margin: 30px 0 60px;
-  font-family: 'Noto Serif', serif;
-}
-h1::after {
-	content: "";
-	width: 100px;
-	position: absolute;
-	margin: 0 auto;
-	height: 4px;
-	border-radius: 1px;
-	background: #727c57;
-	left: 0;
-	right: 0;
-	bottom: -20px;
-}
