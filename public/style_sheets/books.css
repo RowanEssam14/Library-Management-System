@@ -123,10 +123,10 @@ padding:4px 4px;
   padding-left: 0px;
   padding-right: 0px;
 }
-.book.container.reverse-background{
+.book.container.reverse-background{  
   background-color: #66523a;
 }
-.book.container.reverse-background h1{
+.book.container.reverse-background h1{  
   color: antiquewhite;
 }
  h1{
@@ -135,6 +135,7 @@ padding:4px 4px;
     font-size: 60px;
     font-weight: 900;
     font-style: italic;
+    padding-top: 25px;
     padding-bottom: 0px;
     text-align: center;
     position: relative;
@@ -157,13 +158,13 @@ h1::after {
   margin: auto;
 }
 
-#bookCarousel{
+.dynamic-carousel{
   width: 100%;
   max-width: 85% !important;
 }
 
 /* Style the book images */
-#bookCarousel img {
+.dynamic-carousel img {
   height: 155px;
   object-fit: fill;
   border:none;
@@ -193,14 +194,14 @@ border: none !important;
   height: 17em;
 }
 }
-#bookCarousel h5{
+.dynamic-carousel h5{
   font-size: 16.5px;
   font-style: italic;
   font-weight: 600;
   font-family: 'DM Serif Display', serif;
 }
 
-#bookCarousel .btn{
+.dynamic-carousel .btn{
   display: grid;
   font-size: 15px;;
   background-color: #727c57;
@@ -213,6 +214,7 @@ border: none !important;
   text-align: center;
   width: 100%; /* Adjust the width of the items as needed */
   max-width: none; /* Remove the max-width property */
+  
 }
 
 

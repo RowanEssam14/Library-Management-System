@@ -15,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="container-fluid  ">
+  <div class="container-fluid">
     <nav class="navbar  navbar-expand-md navbar-expand-lg fixed-top navbar-light" >
     <div class="container-fluid ">
       <a class="navbar-brand" href="#" >
@@ -84,117 +84,45 @@
     </div>
   </div>
 
-<div class="book container">
-  <h1>All categories</h1>
-  <div id="bookCarousel" class="carousel slide"   data-interval="0">
-    <div class="carousel-inner">
-      <% for(var i=0; i<books.length; i+=5) { %> <!-- Change the increment value to 5 -->
-        <div class="carousel-item <%= i==0 ? 'active' : '' %>">
-          <div class="row justify-content-center">
-            <% for(var j=i; j<i+5 && j<books.length; j++) { %> <!-- Change the condition to j<i+5 -->
-              <div class="col-md-2"> <!-- Adjust the column width to accommodate 5 items -->
-                <div class="card" >
-                  <div class="img-wrapper">
-                  <img class="card-img-top img-fluid" src="<%= books[j].file_path %>" alt="Card image cap">
-                </div>
-                  <div class="card-body">
-                    <h5 class="card-title">How to win friends & Influence People</h5>
-                    <div class="" id="button-box">
-                    <a href="#" class="btn btn-primary">Preview</a>
-                    <a href="#" class="btn btn-primary">Reserve</a>
+<% Object.keys(books).forEach((genre, index)  => { %>
+  <div class="book container <%= index % 2 !== 0 ? 'reverse-background' : '' %>">
+    <h1 data-genre="<%= genre %>"><%= genre.replace('_', ' ') %></h1>
+    <div id="<%= genre %>Carousel" class="dynamic-carousel carousel slide" data-interval="0">
+      <div class="carousel-inner">
+        <% for(var i=0; i<books[genre].length; i+=5) { %>
+          <div class="carousel-item <%= i==0 ? 'active' : '' %>">
+            <div class="row justify-content-center">
+              <% for(var j=i; j<i+5 && j<books[genre].length; j++) { %>
+                <div class="col-md-2">
+                  <div class="card" >
+                    <div class="img-wrapper">
+                      <img class="card-img-top img-fluid" src="<%= books[genre][j].file_path %>" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= books[genre][j].title %></h5>
+                      <div class="" id="button-box">
+                        <a href="#" class="btn btn-primary">Preview</a>
+                        <a href="#" class="btn btn-primary">Reserve</a>
+                      </div>
+                    </div>
                   </div>
-                  </div>
                 </div>
-              </div>
-            <% } %>
+              <% } %>
+            </div>
           </div>
-        </div>
-      <% } %>
-    </div>
-    <a class="carousel-control-prev" href="#bookCarousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#bookCarousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </a>
-  
-  </div>
-</div>
-  
-
-<div class="book container reverse-background">
-  <h1>All categories</h1>
-  <div id="bookCarousel" class="carousel slide"   data-interval="0">
-    <div class="carousel-inner">
-      <% for(var i=0; i<books.length; i+=5) { %> <!-- Change the increment value to 5 -->
-        <div class="carousel-item <%= i==0 ? 'active' : '' %>">
-          <div class="row justify-content-center">
-            <% for(var j=i; j<i+5 && j<books.length; j++) { %> <!-- Change the condition to j<i+5 -->
-              <div class="col-md-2"> <!-- Adjust the column width to accommodate 5 items -->
-                <div class="card" >
-                  <div class="img-wrapper">
-                  <img class="card-img-top img-fluid" src="<%= books[j].file_path %>" alt="Card image cap">
-                </div>
-                  <div class="card-body">
-                    <h5 class="card-title">How to win friends</h5>
-                    <a href="#" class="btn btn-primary">Preview</a>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-          </div>
-        </div>
-      <% } %>
-    </div>
-    <a class="carousel-control-prev" href="#bookCarousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#bookCarousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </a>
-  
-  </div>
-</div>
-<div class="book container">
-  <h1>All categories</h1>
-  <div id="bookCarousel" class="carousel slide"   data-interval="0">
-    <div class="carousel-inner">
-      <% for(var i=0; i<books.length; i+=5) { %> <!-- Change the increment value to 5 -->
-        <div class="carousel-item <%= i==0 ? 'active' : '' %>">
-          <div class="row justify-content-center">
-            <% for(var j=i; j<i+5 && j<books.length; j++) { %> <!-- Change the condition to j<i+5 -->
-              <div class="col-md-2"> <!-- Adjust the column width to accommodate 5 items -->
-                <div class="card" >
-                  <div class="img-wrapper">
-                  <img class="card-img-top img-fluid" src="<%= books[j].file_path %>" alt="Card image cap">
-                </div>
-                  <div class="card-body">
-                    <h5 class="card-title">How to win friends</h5>
-                    <a href="#" class="btn btn-primary">Preview</a>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-          </div>
-        </div>
-      <% } %>
-    </div>
-    <a class="carousel-control-prev" href="#bookCarousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#bookCarousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </a>
-  
-  </div>
-</div>
-  
+        <% } %>
+      </div>
+      <a class="carousel-control-prev" href="#<%= genre %>Carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#<%= genre %>Carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div> 
+  </div> 
+<% }); %>
 
 
 

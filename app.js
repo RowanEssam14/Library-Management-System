@@ -13,11 +13,9 @@ app.use(express.static('public'));
 
 // Import the routes
 const booksRouter = require('./routes/books');
-const testRouter = require('./routes/test');
 
 // Use the books route
 app.use('/books', booksRouter);
-app.use('/test', testRouter);
 
 // Starting the server
 app.listen(port, function() {
