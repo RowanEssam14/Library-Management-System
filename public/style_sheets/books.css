@@ -199,6 +199,7 @@ border: none !important;
   font-style: italic;
   font-weight: 600;
   font-family: 'DM Serif Display', serif;
+  text-transform: capitalize;
 }
 
 .dynamic-carousel .btn{
