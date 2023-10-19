@@ -214,8 +214,7 @@ border: none !important;
 .carousel-item {
   text-align: center;
   width: 100%; /* Adjust the width of the items as needed */
-  max-width: none; /* Remove the max-width property */
-  
+  max-width: none; /* Remove the max-width property */  
 }
 
 

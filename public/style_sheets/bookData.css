@@ -1,0 +1,190 @@
+:root {
+scroll-behavior: smooth;
+}
+
+html,body {
+
+margin: 0;
+padding: 0;
+height: 100%;
+/* background-color: #fff; */
+color: #555;
+font-family: 'Montserrat', sans-serif;
+
+
+font-weight: 300;
+font-size: 20px; 
+text-rendering: optimizeLegibility;
+background-color: antiquewhite;
+
+}
+/*--------------------------------------------------------------
+# Navbar
+--------------------------------------------------------------*/
+.navbar{
+background-color: #66523a;
+
+}
+div.container-fluid{
+padding:0px;
+width: 100%;
+box-sizing: border-box;
+}
+div#navbarSupportedContent{
+padding-left: 10px;
+padding-right: 50px;
+}
+.navbar ul li {
+padding-left: 7px;
+padding-right: 7px;
+display: flex;
+justify-content: space-between;
+width: 100%;
+color:antiquewhite;
+}
+.navbar .nav-link{
+color:antiquewhite;
+}
+.navbar img{
+width: 34px;
+height:43px;
+margin-left: 15px;
+margin-right: 15px;
+color:antiquewhite;
+}
+.navbar-brand {
+font-family: 'Montserrat';
+font-size: larger;
+font-weight: 700;
+padding-left:35px;
+color: antiquewhite;
+}
+.navbar button.navbar-toggler{
+margin-right: 25px;
+padding:4px 4px;
+}
+.dropdown-menu{
+min-width: 8.5rem;
+}
+/*--------------------------------------------------------------
+# Book Data Section
+--------------------------------------------------------------*/
+.hero{
+    min-height: 100%;
+}
+.container-fluid#book-section{
+    margin-top: 150px;
+}
+
+.row{
+    text-align: center;
+}
+
+#book-section .main-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#book-section .main-details p{
+    padding-right: 21px;
+    padding-right: 21px;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+#book-section h1{
+    font-family: 'Georgia', serif;
+    font-size: 3.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0px;
+}
+#book-section #book-description{
+    text-align: justify;
+    padding: 0px 50px;
+    margin-bottom: 62px;
+}
+#book-section #book-image{
+    width: 40%;
+    margin-bottom: 20px;
+    /*background: linear-gradient(to bottom, #939E74 60%, white 40%);
+    padding: 50px;
+*/
+}
+#book-section #other-details h2{
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#book-section #other-details{
+    padding: 0 50px;
+    text-align: justify;
+}
+#other-details p{
+    margin-bottom: 0px;
+    text-align: left;
+    padding: 0px;
+
+}
+#other-details #left-col{
+    padding-right: 0px;
+}
+
+#other-details span{
+    font-weight: 700;
+}
+#button-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn{
+    display: grid;
+    font-size: 15px;;
+    background-color: #727c57;
+    border-color:#727c57;
+    margin: 3px 0px;
+    width: 40%;
+
+}
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+footer {
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #66523a;
+  }
+  footer a{
+    text-decoration: none;
+    color:antiquewhite;
+  }
+  footer div.container{
+    padding-left: 100px;
+    padding-right: 100px;
+    padding: 30px 0px 30px 0px;
+  }
+  
+  footer .col-sm-12{
+    display:flex;
+    justify-content: center ;
+  }
+  footer .col-sm-12#secondcol{
+    align-items: center;
+    flex-direction: column;
+  }
+  @media (min-width: 768px) {
+    footer .col-md-4#firstcol {
+      justify-content: left;
+    }
+    footer .col-md-4#thirdcol {
+      justify-content: right;
+    }
+  }
+  footer #brand-icon{
+    height: 48px;
+  }
+  footer #brand-name{
+    color:antiquewhite;
+  }
