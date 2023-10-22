@@ -99,7 +99,7 @@
                       <img class="card-img-top img-fluid" src="<%= books[genre][j].file_path %>" alt="Card image cap">
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title"><%= books[genre][j].title %></h5>
+                      <a href="http://localhost:3300/bookData/<%= books[genre][j].book_id %>"><h5 class="card-title"><%= books[genre][j].title %></h5></a>
                       <div class="" id="button-box">
                         <a href="#" class="btn btn-primary">Preview</a>
                         <a href="#" class="btn btn-primary">Reserve</a>

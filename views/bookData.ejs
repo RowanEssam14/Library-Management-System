@@ -10,7 +10,7 @@
    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,100;1,500&display=swap" rel="stylesheet">
    <!--Bootstrap-->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-   <link rel="stylesheet" type="text/css" href="style_sheets/bookData.css">
+   <link rel="stylesheet" type="text/css" href="/style_sheets/bookData.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
@@ -21,7 +21,7 @@
         <nav class="navbar  navbar-expand-md navbar-expand-lg fixed-top navbar-light" >
         <div class="container-fluid ">
             <a class="navbar-brand" href="#" >
-            <img src="assets/icons8-open-book-50.svg" alt="" width="30" height="24" >
+            <img src="/assets/icons8-open-book-50.svg" alt="" width="30" height="24" >
             Book Worms
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
                 <a class="nav-link " aria-current="page" href="http://127.0.0.1:5500/views/html/index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Books</a>
+                <a class="nav-link" href="http://localhost:3300/books">Books</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:5500/views/html/about.html">About</a>
@@ -64,33 +64,34 @@
   <div class="container-fluid hero" id="book-section">
     <div class="row">
         <div class="col-md-8">
-            <h1>Atomic Habits</h2>
+            <h1><%=books[0].title%></h1>
             <div class="main-details"> 
-                <p>J.K. Rowling</p>
-                <p>2020-09-01</p>
-                <p>Fantasy</p>
+                <p><%= books[0].author_first_name%> <%= books[0].author_last_name%></p>
+                <p><%= new Date(books[0].publish_date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') %></p>
+                <p><%= books[0].genre_name.replace('_', ' ') %></p>
             </div>
-            <p  id ="book-description">The 48 Laws of Power" is a non-fiction book that focuses on understanding power and the ways in which it can be attained and maintained. The book presents 48 different laws or principles that are designed to help readers gain power and protect themselves from those who already possess it. The laws are based on historical examples and real-life situations and are meant to be applicable in both personal and professional contexts. The book has been widely read and debated, with some critics praising its insights while others have criticized its amoral tone and emphasis on manipulation.</p>
+            <p  id ="book-description"><%= books[0].book_description %></p>
             <div id ="other-details" class="mb-3">
                 <h2>Book Details</h2>
                 <div class="row">
-                    <div class="col-md-4" id="">
-                        <p><span>Author name: </span>Robert John</p>
-                        <p><span>Author specialization: </span>Pschycology</p>
-                        <p><span>ISBN: </span>9780140280197</p>
-                        <p><span>Genre: </span>Fantasy</p>
+                    <div class="col-md-5" id="">
+                        <p><span>Author name: </span><%= books[0].author_first_name%> <%= books[0].author_last_name%></p>
+                        <p><span>Author specialization: </span><%= books[0].specialization %></p>
+                        <p><span>ISBN: </span><%= books[0].ISBN %></p>
+                        <p><span>Genre: </span><%= books[0].genre_name.replace('_', ' ') %></p>
+                        
                     </div>
-                    <div class="col-md-4" id="right-col">
-                        <p><span>Publisher: </span>Viking Tom</p>
-                        <p><span>Publish Date: </span>2020-09-01</p>
-                        <p><span>Language: </span>eng</p>
-                        <p><span>Number of pages: </span>452</p>
+                    <div class="col-md-5" id="right-col">
+                        <p><span>Publisher: </span><%= books[0].publisher_first_name%> <%= books[0].publisher_last_name%></p>
+                        <p><span>Publish Date: </span><%= new Date(books[0].publish_date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') %></p>
+                        <p><span>Language: </span><%=books[0].language%></p>
+                        <p><span>Number of pages: </span><%=books[0].no_of_pages%></p>
                     </div>
                 </div>
             </div>
         </div>
         <div class=" col-md-4">
-                    <img src="assets/books/Atomic_Habits.jpg" id="book-image" alt="Book Cover" class="img-fluid">
+                    <img src="/<%= books[0].file_path %>" id="book-image" alt="Book Cover" class="img-fluid">
                     <div id="button-box">
                         <a href="#" class="btn btn-primary">Preview</a>
                         <a href="#" class="btn btn-primary">Reserve</a>
@@ -110,7 +111,7 @@
           </ul>
         </div>
         <div class="col-md-4  col-sm-12" id="secondcol">
-          <img src="assets/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
+          <img src="/assets/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
           <p id="brand-name"><strong>Book Worms</strong> </p>
         </div>
         <div class="col-md-4 col-sm-12" id="thirdcol">
