@@ -94,18 +94,18 @@
             <div class="row justify-content-center">
               <% for(var j=i; j<i+5 && j<books[genre].length; j++) { %>
                 <div class="col-md-2">
-                  <div class="card" >
+                  <a href="http://localhost:3300/bookData/<%= books[genre][j].book_id %>"><div class="card" >
                     <div class="img-wrapper">
                       <img class="card-img-top img-fluid" src="<%= books[genre][j].file_path %>" alt="Card image cap">
                     </div>
                     <div class="card-body">
-                      <a href="http://localhost:3300/bookData/<%= books[genre][j].book_id %>"><h5 class="card-title"><%= books[genre][j].title %></h5></a>
+                      <h5 class="card-title"><%= books[genre][j].title %></h5>
                       <div class="" id="button-box">
                         <a href="#" class="btn btn-primary">Preview</a>
                         <a href="#" class="btn btn-primary">Reserve</a>
                       </div>
                     </div>
-                  </div>
+                  </div></a>
                 </div>
               <% } %>
             </div>

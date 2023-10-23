@@ -201,6 +201,13 @@ border: none !important;
   font-family: 'DM Serif Display', serif;
   text-transform: capitalize;
 }
+.carousel-inner a h5 {
+  color:#000000ba;
+}
+.carousel-inner a{
+  text-decoration: none;
+
+}
 
 .dynamic-carousel .btn{
   display: grid;
