@@ -188,3 +188,19 @@ footer {
   footer #brand-name{
     color:antiquewhite;
   }
+
+/*--------------------------------------------------------------
+# Preview Modal
+--------------------------------------------------------------*/
+
+/* Custom CSS for the modal */
+#pdfPreviewModal .modal-content {
+  background-color: #f8f9fa; 
+  height:80vh;
+}
+
+#pdfViewer {
+  border: none; 
+}
+
+
