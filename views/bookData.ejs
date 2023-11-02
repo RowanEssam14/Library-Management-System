@@ -94,7 +94,7 @@
                     <img src="/<%= books[0].file_path %>" id="book-image" alt="Book Cover" class="img-fluid">
                     <div id="button-box">
                         <!-- Modify your Preview button -->
-                        <a href="#" class="btn btn-primary preview-btn" data-toggle="modal" data-target="#pdfPreviewModal" data-pdfurl="http://localhost:3300/assets/pdfs/sample.pdf">Preview</a>
+                        <a href="/bookData/<%= books[0].book_id %>/preview" class="btn btn-primary preview-btn" data-toggle="modal" data-target="#pdfPreviewModal">Preview</a>
                         <a href="#" class="btn btn-primary">Reserve</a>
                 </div>                
         </div>
@@ -150,19 +150,19 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Get the preview buttons
       const previewButtons = document.querySelectorAll('.preview-btn');
-  
+    
       // Attach event listener to each button
       previewButtons.forEach(function(button) {
         button.addEventListener('click', function(e) {
           e.preventDefault();
-          const pdfUrl = this.dataset.pdfurl;
+          const pdfUrl = this.href;
           const pdfViewer = document.getElementById('pdfViewer');
           pdfViewer.src = pdfUrl;
         });
       });
     });
-  </script>  
-
+    </script>
+       
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/b042d509f8.js" crossorigin="anonymous"></script>
 </body>

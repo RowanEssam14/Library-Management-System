@@ -296,3 +296,22 @@ border: none !important;
   display: none;
 }
 
+/*--------------------------------------------------------------
+# Preview Modal
+--------------------------------------------------------------*/
+
+/* Custom CSS for the modal */
+#pdfPreviewModal .modal-content {
+  background-color: #f8f9fa; 
+  height:80vh;
+}
+
+#pdfViewer {
+  border: none; 
+}
+
+div#icon{
+    display: none !important;
+}
+
+

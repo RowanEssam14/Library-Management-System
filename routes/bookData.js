@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 
+const { PDFDocument } = require('pdf-lib');
+const fs = require('fs');
+const path = require('path');
+
 // Create a MySQL connection
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -32,5 +36,47 @@ router.get('/:id', function(req, res) {
     res.render('bookData', { books: results });
   });
 });
+
+router.get('/:id/preview', function(req, res) {
+  // Fetch the PDF path from the database
+  let sql = 'SELECT pdf_path FROM book WHERE book_id = ?';
+  let id = req.params.id;
+  connection.query(sql, [id], async function(error, results, fields) {
+    if (error) throw error;
+
+    try {
+      console.log("Entered preview route successfully")
+      const pdfPathFromDb = results[0].pdf_path.trim();
+      console.log(pdfPathFromDb);
+
+      // Replace this with the actual path to your PDF files
+      const pdfPath = path.join(__dirname, '..', 'public', 'assets', 'pdfs',pdfPathFromDb );
+      const originalPdfBytes = fs.readFileSync(pdfPath);
+      const pdfDoc = await PDFDocument.load(originalPdfBytes);
+      const totalPages = pdfDoc.getPageCount();
+
+      // Remove extra pages
+      for (let i = totalPages - 1; i >= 10; i--) {
+        pdfDoc.removePage(i);
+      }
+
+      const pdfBytes = await pdfDoc.save();
+
+      // Send the preview PDF bytes directly in the response
+      res.contentType("application/pdf");
+
+      // Create a Readable stream and pipe it to the response
+      const readableStream = new require('stream').Readable();
+      readableStream._read = () => {}; // _read is required but you can noop it
+      readableStream.push(pdfBytes);
+      readableStream.push(null); // indicates end-of-file basically - the end of the stream
+      readableStream.pipe(res); // pipe the stream to the response
+
+    } catch (error) {
+      console.error('Error in /preview route:', error);
+    }
+  });
+});
+
 
   module.exports = router;

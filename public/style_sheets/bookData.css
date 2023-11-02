@@ -78,6 +78,7 @@ min-width: 8.5rem;
 
 .row{
     text-align: center;
+    /*margin-bottom: 50px;*/ /*add this with media querz onlz when the row starts to become one column*/
 }
 
 #book-section .main-details{
@@ -201,6 +202,10 @@ footer {
 
 #pdfViewer {
   border: none; 
+}
+
+div#icon{
+    display: none !important;
 }
 
 
