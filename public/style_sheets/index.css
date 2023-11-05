@@ -52,6 +52,9 @@ div#navbarSupportedContent{
     justify-content: space-between;
     width: 100%;
 }
+.navbar ul li a:hover{
+ color: white;
+}
 .navbar img{
     width: 34px;
     height:43px;
@@ -93,6 +96,11 @@ div#navbarSupportedContent{
 .brand-icon use {
   fill: #727c57;
 }
+#hero-textbox .btn:hover{
+  background-color: #2d3c1f;
+}
+
+
 /*--------------------------------------------------------------
 # Features
 --------------------------------------------------------------*/

@@ -217,6 +217,10 @@ border: none !important;
   justify-content: center;
   margin-bottom: 5px;
 }
+.btn:hover{
+  background-color: #2d3c1f;
+}
+
 
 .carousel-item {
   text-align: center;
