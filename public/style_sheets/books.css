@@ -107,6 +107,9 @@ padding:4px 4px;
   color: white;
   padding: 7.5px 20px;
 }
+.search-bar .dropdown-toggle{
+  background-color: transparent;
+}
 
 /*--------------------------------------------------------------
 # Books Carousel
@@ -212,10 +215,14 @@ border: none !important;
 .dynamic-carousel .btn{
   display: grid;
   font-size: 15px;;
-  background-color: #727c57;
+  background-color: #727c57 ;
   border-color:#727c57;
   justify-content: center;
   margin-bottom: 5px;
+}
+.btn{
+  background-color: #727c57 ;
+  border-color: #727c57;
 }
 .btn:hover{
   background-color: #2d3c1f;
@@ -318,4 +325,13 @@ div#icon{
     display: none !important;
 }
 
+/*--------------------------------------------------------------
+# Reserve Modals
+--------------------------------------------------------------*/
+.modal-dialog {
+  max-width: 600px;
+}
+.modal-body{
+  color:#2d3c1f;
+}
 

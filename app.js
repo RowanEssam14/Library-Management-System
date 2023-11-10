@@ -1,9 +1,15 @@
 const express = require('express');
+const session = require('express-session'); 
 const app = express();
-const bodyParser = require('body-parser');
-
 const port = 3300;
 
+// Set up session middleware to be used across multiple routes
+app.use(session({
+  secret: 'my-secret-key', 
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 30 * 60 * 1000 }
+}));
 
 // Setting the view engine to EJS
 app.set('view engine', 'ejs');
