@@ -48,6 +48,11 @@ router.post('/reserve', function(req, res) {
       res.json({status: 'limit_exceeded', max_borrow: req.session.max_borrow});
       return;
     }
+    // Checking if the book already exists in the cart
+    if (req.session.cart && req.session.cart.includes(book_id)) {
+      res.json({status: 'already_reserved'});
+      return;
+    }
     // If the cart exist push book_id 
     if (req.session.cart) {
       req.session.cart.push(book_id);

@@ -205,6 +205,9 @@
         } else if (response.status === 'limit_exceeded') {
           $('#customModel .modal-body').html('You have reached the maximum limit for reservations!<br>You are only allowed to borrow up to ' + response.max_borrow + ' books at a time.');
           $('#customModel').modal('show');
+        }else if(response.status == 'already_reserved') {
+          $('#customModel .modal-body').html('This book already exists in the cart!');
+          $('#customModel').modal('show');
         } else if (response.status === 'out_of_stock') {
           $('#customModel .modal-body').text('Sorry, this book is currently out of stock.')
           $('#customModel').modal('show');
