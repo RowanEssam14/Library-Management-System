@@ -16,19 +16,54 @@ connection.connect((err) => {
   console.log('Connected to the MySQL database.');
 });
 
-// getting books from the database to display in carousels
-router.get('/', function(req, res) {
+// In-memory cache for books data
+let booksCache = null;
+
+// Function to fetch books data from the database
+const fetchBooksData = (callback) => {
   connection.query('SELECT * FROM book INNER JOIN book_x_genre ON book.book_id = book_x_genre.book_id INNER JOIN genre ON book_x_genre.genre_id = genre.genre_id;', function(error, results, fields) {
-    if (error) throw error;
-    const booksByGenre = {};
-    results.forEach(book => {
-      if (!booksByGenre[book.genre_name]) {
-        booksByGenre[book.genre_name] = [];
-      }
-      booksByGenre[book.genre_name].push(book);
-    });
-    res.render('books',{books:booksByGenre});
+    if (error) {
+      callback(error, null);
+    } else {
+      const booksByGenre = {};
+      results.forEach(book => {
+        if (!booksByGenre[book.genre_name]) {
+          booksByGenre[book.genre_name] = [];
+        }
+        booksByGenre[book.genre_name].push(book);
+      });
+      callback(null, booksByGenre);
+    }
   });
+};
+
+const cacheTimeout = 60000; // Cache expires after 1 minute
+
+//Middleware to handle caching
+const cacheMiddleware = (req, res, next) => {
+  if (booksCache === null || Date.now() - cacheTimestamp > cacheTimeout) {
+    // If the cache is empty or expired, fetch data from the database
+    fetchBooksData((error, data) => {
+      if (error) {
+        res.status(500).send('Internal Server Error');
+      } else {
+        // Cache the fetched data
+        booksCache = data;
+        cacheTimestamp = Date.now(); // Update the cache timestamp
+        res.locals.books = booksCache;
+        next();
+      }
+    });
+  } else {
+    // If the cache is not empty and not expired, use the cached data
+    res.locals.books = booksCache;
+    next();
+  }
+};
+
+// Route to render books.ejs
+router.get('/', cacheMiddleware, function(req, res) {
+  res.render('books', { loggedIn: req.session.loggedin,books: res.locals.books });
 });
 
 //endpoint for handling the reserve button
