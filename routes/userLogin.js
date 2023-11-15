@@ -35,5 +35,16 @@ connection.connect((err) => {
         }
     });
 });
+
+router.get('/logout', function(req, res) {
+  req.session.destroy(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('http://localhost:3300/controller/index');
+    }
+  });
+});
+
   
  module.exports = router;

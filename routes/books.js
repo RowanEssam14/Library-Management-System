@@ -102,7 +102,7 @@ router.post('/reserve', function(req, res) {
   } else {
     // If the user is not logged in, redirect them to the login page
     console.log('user needs to login')
-    res.json({status: 'redirect', url: 'http://localhost:3300/loginCustomer'});
+    res.json({status: 'redirect', url: 'http://localhost:3300/userLogin'});
   }
 });
 
