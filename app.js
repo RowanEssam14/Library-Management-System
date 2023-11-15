@@ -24,14 +24,16 @@ app.use(express.urlencoded({ extended: true }));
 // Import the routes
 const booksRouter = require('./routes/books');
 const bookDataRouter = require('./routes/bookData');
-const loginCustomerRouter = require('./routes/loginCustomer');
+const userLoginRouter = require('./routes/userLogin');
+const controllerRouter = require('./routes/controller');
 /*const loginAdminRouter = require('./routes/loginAdmin');
 const loginLibrarianRouter = require('./routes/loginLibrarian');*/
 
 // Use the books route
 app.use('/books', booksRouter);
 app.use('/bookData', bookDataRouter);
-app.use('/loginCustomer', loginCustomerRouter);
+app.use('/userLogin', userLoginRouter);
+app.use('/controller', controllerRouter);
 /*app.use('/loginAdmin', loginAdminRouter);
 app.use('/loginLibrarian', loginLibrarianRouter);*/
 
