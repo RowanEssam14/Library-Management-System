@@ -26,6 +26,7 @@ const booksRouter = require('./routes/books');
 const bookDataRouter = require('./routes/bookData');
 const userLoginRouter = require('./routes/userLogin');
 const controllerRouter = require('./routes/controller');
+const checkoutRouter = require('./routes/checkout');
 /*const loginAdminRouter = require('./routes/loginAdmin');
 const loginLibrarianRouter = require('./routes/loginLibrarian');*/
 
@@ -34,6 +35,7 @@ app.use('/books', booksRouter);
 app.use('/bookData', bookDataRouter);
 app.use('/userLogin', userLoginRouter);
 app.use('/controller', controllerRouter);
+app.use('/checkout',checkoutRouter)
 /*app.use('/loginAdmin', loginAdminRouter);
 app.use('/loginLibrarian', loginLibrarianRouter);*/
 

@@ -33,7 +33,7 @@ router.get('/:id', function(req, res) {
   let id = req.params.id;
   connection.query(sql, [id], function(error, results, fields) {
     if (error) throw error;
-    res.render('bookData', { books: results });
+    res.render('bookData', { books: results ,  loggedIn: req.session.loggedin});
   });
 });
 

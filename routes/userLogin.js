@@ -27,7 +27,8 @@ connection.connect((err) => {
             req.session.loggedin = true;
             req.session.username = library_id;
             req.session.max_borrow = results[0].max_borrow ;
-            console.log("User logged in successfully of max_borrow:" + req.session.max_borrow);
+            req.session.user_id = results[0].user_id;
+            console.log("User logged in successfully of max_borrow:" + req.session.max_borrow + " and role:" + req.session.role);
             res.redirect('http://localhost:3300/books'); // Redirect to the books page upon successful login
         } else {
           console.log("wrong password");

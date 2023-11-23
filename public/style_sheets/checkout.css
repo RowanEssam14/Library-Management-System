@@ -1,0 +1,130 @@
+:root {
+    scroll-behavior: smooth;
+  }
+
+  html,body {
+    margin: 0;
+    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    text-rendering: optimizeLegibility;
+    background-color: #6c5c4d;
+}
+/*--------------------------------------------------------------
+# Navbar
+--------------------------------------------------------------*/
+.navbar{
+    background-color: #e1dad2;
+}
+div.container-fluid{
+    padding:0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+div#navbarSupportedContent{
+    padding-left: 10px;
+    padding-right: 50px;
+}
+.navbar ul li {
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.navbar img{
+    width: 34px;
+    height:43px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.navbar-brand {
+    font-family: 'Montserrat';
+    font-size: larger;
+    font-weight: 700;
+    padding-left:35px;
+}
+.navbar button.navbar-toggler{
+  margin-right: 25px;
+  padding:4px 4px;
+}
+.dropdown-menu{
+    min-width: 8.5rem;
+}
+
+h1{
+    color:antiquewhite;
+}
+/*--------------------------------------------------------------
+# Cart & Checkout
+--------------------------------------------------------------*/
+.container-fluid.checkout{
+    margin-top: 100px;
+}
+
+.col-lg-7.left{
+    padding-right: 15px;
+    padding-left: 30px;
+    margin-bottom: 25px;
+}
+
+.col-lg-5.right{
+    padding-right: 30px;
+    padding-left: 15px;
+}
+.col-md-12{
+    padding:15px 30px;
+}
+
+@media (max-width: 992px){
+    .col-lg-7.left{
+        margin-bottom: 10px;
+    }
+    .col-lg-5.right{
+        padding-right: 18px;
+        padding-left: 30px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width:992){
+    .col-lg-7.left{
+        margin-bottom: 30px;
+    }
+}
+
+/*--------------------------------------------------------------
+# Cart
+--------------------------------------------------------------*/
+.shopping-cart .card-title{
+    margin-bottom: 40px;
+}
+.book-image{
+    max-width: 50px;
+}
+
+.row.item {
+    margin: 20px 0px;
+}
+
+.item-name, .delete-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*--------------------------------------------------------------
+# Checkout
+--------------------------------------------------------------*/
+.checkout .card-title , .select-date{
+    margin-bottom: 20px;
+}
+.btn{
+    background-color: #727c57;
+    border-color: #727c57 ;
+}
+.btn:hover{
+    background-color: #2d3c1f;
+    border-color: #2d3c1f;
+}
+.btn:active{
+    background-color: #2d3c1f !important;
+}
