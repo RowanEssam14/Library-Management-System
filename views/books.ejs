@@ -225,8 +225,10 @@
           $('#customModel').modal('show');
         } else if (response.status === 'redirect') {
           window.location.href = response.url; // Redirect the user to the login page
-        }
-      });
+        }else if (response.status === 'two_borrows') {
+          $('#customModel .modal-body').html('You cannot have 2 active borrows at the same time!');
+          $('#customModel').modal('show');
+      }});
     });
 
   </script>
