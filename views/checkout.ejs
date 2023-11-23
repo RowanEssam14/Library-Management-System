@@ -75,7 +75,7 @@
                               </div>
                               <div class="col-4 delete-item">
                                   <!-- Delete Item -->
-                                  <p>Delete</p>
+                                  <button class=" btn-link delete-button" data-bookid="<%= book.book_id %>">Delete</button>
                               </div>
                           </div>
                       <% }); %>
@@ -133,6 +133,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function() {
+
         var today = new Date();
         var day = today.getDay();
         console.log(day);
@@ -174,8 +175,26 @@
             alert("Invalid date. Please select a weekday that is not today or in the past.");
         }
     });
+
+    $('.delete-button').on('click', function() {
+      var bookIdToDelete = $(this).attr('data-bookid');
+
+      $.ajax({
+          url: '/checkout/delete',
+          method: 'POST',
+          data: { book_id: bookIdToDelete },
+          success: function(response) {
+            location.reload();
+          },
+          error: function(error) {
+              console.error('Error:', error);
+          }
+      });
 });
-        $('.modal-footer .btn-secondary').on('click', function() {
+
+});
+
+      $('.modal-footer .btn-secondary').on('click', function() {
             window.location.href = 'http://localhost:3300/checkout';
         });
 

@@ -3,28 +3,25 @@
 }
 
 html,body {
-  
   margin: 0;
   padding: 0;
   /* background-color: #fff; */
   color: #555;
   font-family: 'Montserrat', sans-serif;
-  
   font-weight: 300;
-  font-size: 20px; 
+  font-size: 20px;
   text-rendering: optimizeLegibility;
   background-color: antiquewhite;
- 
 }
 /*--------------------------------------------------------------
 # hero
 --------------------------------------------------------------*/
-/* .hero{  
+/* .hero{
   height: 100vh;
   background-position: center;
   position: relative;
   background-size: cover;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
 } */
 /*--------------------------------------------------------------
 # Navbar
@@ -126,14 +123,13 @@ padding:4px 4px;
   padding-left: 0px;
   padding-right: 0px;
 }
-.book.container.reverse-background{  
+.book.container.reverse-background{
   background-color: #66523a;
 }
-.book.container.reverse-background h1{  
+.book.container.reverse-background h1{
   color: antiquewhite;
 }
  h1{
-  
     color: #000000ba;
     font-size: 60px;
     font-weight: 900;
@@ -177,7 +173,7 @@ h1::after {
   width: auto;
   max-width: 100%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  
+
 }
 
 .img-wrapper{
@@ -233,7 +229,7 @@ border: none !important;
 .carousel-item {
   text-align: center;
   width: 100%; /* Adjust the width of the items as needed */
-  max-width: none; /* Remove the max-width property */  
+  max-width: none; /* Remove the max-width property */
 }
 
 
@@ -241,7 +237,7 @@ border: none !important;
 .carousel-control-prev,
 .carousel-control-next {
   width: 5%;
-  
+
 }
 
 .carousel-control-prev-icon,
@@ -314,12 +310,12 @@ border: none !important;
 
 /* Custom CSS for the modal */
 #pdfPreviewModal .modal-content {
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   height:80vh;
 }
 
 #pdfViewer {
-  border: none; 
+  border: none;
 }
 
 div#icon{

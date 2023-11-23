@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
       const bookIds = req.session.cart.join(',');
 
       // Query the database
-      connection.query(`SELECT title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
+      connection.query(`SELECT book_id,title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
         if (error) {
           res.status(500).send('Internal Server Error');
         } else {
@@ -64,10 +64,9 @@ router.post('/borrow', function(req, res) {
           // Insert the book_borrow records using foreach loop
           req.session.cart.forEach(function(bookId) {
               connection.query('INSERT INTO `book_borrow` (`borrow_id`, `book_id`) VALUES (?, ?)', [lastIdInBorrow, bookId], function(error, results, fields) {
-                console.log("we are going to insert in book_borrow now",lastIdInBorrow)
+
                   if (error) {
                       return connection.rollback(function() {
-                        console.log("hi there is an error inserting book_borrow");
                           throw error;
                       });
                   }
@@ -87,5 +86,20 @@ router.post('/borrow', function(req, res) {
       });
   });
 });
+
+router.post('/delete', function(req, res) {
+
+    const bookIdToDelete = req.body.book_id;
+    const index = req.session.cart.indexOf(bookIdToDelete);
+    if (index !== -1) {
+        // Remove the book ID from the cart array
+        req.session.cart.splice(index, 1);
+        res.status(200).send({ success: true });
+    } else {
+        res.status(404).send({ success: false, message: 'Book ID not found in cart' });
+    }
+});
+
+
 
 module.exports = router;

@@ -132,3 +132,13 @@ h1{
     margin-top: 336px;
     color: antiquewhite;
 }
+.delete-button{
+    border: none;
+    background-color: white;
+    color: #727c57;
+    text-decoration: none;
+    font-weight: bold;
+}
+.delete-button:hover{
+    color: #2d3c1f;
+}
