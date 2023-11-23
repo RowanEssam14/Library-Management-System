@@ -52,6 +52,7 @@
     </nav>
   </div>
 
+  <% if (books.length > 0) { %>
   <div class="container-fluid checkout">
       <div class="row">
           <!-- Cart Container -->
@@ -108,14 +109,18 @@
           </div>
 
       </div>
+  </div><% } else { %>
+    <div class=" container text-center" id="empty-cart">
+      <h2>Your cart is empty!</h2>
   </div>
+<% } %>
 
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function() {
-    var today = new Date('2023-11-30');
+    var today = new Date();
     var day = today.getDay();
     console.log(day);
     var nextBusinessDay;

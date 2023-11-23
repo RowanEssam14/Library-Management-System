@@ -69,7 +69,7 @@ router.get('/', cacheMiddleware, function(req, res) {
 //endpoint for handling the reserve button
 router.post('/reserve', function(req, res) {
   console.log('reserve endpoint hit');
-  //if user is logged store book_id & no of copies avaliable 
+  //if user is logged store book_id & no of copies avaliable
   if (req.session.loggedin) {
     console.log('user is already logged in of MAXBORROW: '+ req.session.max_borrow);
     const { book_id , no_of_copies } = req.body;
@@ -88,7 +88,7 @@ router.post('/reserve', function(req, res) {
       res.json({status: 'already_reserved'});
       return;
     }
-    // If the cart exist push book_id 
+    // If the cart exist push book_id
     if (req.session.cart) {
       req.session.cart.push(book_id);
       console.log("nth number being added: of id " + book_id);

@@ -17,20 +17,30 @@ connection.connect((err) => {
 });
 
 router.get('/', function(req, res) {
-  // Convert the array of book_ids to a string
-  const bookIds = req.session.cart.join(',');
+    // Initialize the cart if it'snot set before
+    if (!req.session.cart) {
+      req.session.cart = [];
+    }
+    // Check if the cart is empty
+    if (req.session.cart.length === 0) {
+      // Render the checkout page with an empty list of books
+      res.render('checkout', { loggedIn: req.session.loggedin, books: [] });
+    } else {
+      // Convert the array of book_ids to a string
+      const bookIds = req.session.cart.join(',');
 
-  // Query the database
-  connection.query(`SELECT title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
-      if (error) {
+      // Query the database
+      connection.query(`SELECT title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
+        if (error) {
           res.status(500).send('Internal Server Error');
-      } else {
+        } else {
           // Render the checkout page with the book data
-          //console.log(results);
-          res.render('checkout', { loggedIn: req.session.loggedin, books: results }); //TODO: use the loggedin to handle an error
-      }
+          res.render('checkout', { loggedIn: req.session.loggedin, books: results });
+        }
+      });
+    }
   });
-});
+
 
 router.post('/borrow', function(req, res) {
 
@@ -71,6 +81,7 @@ router.post('/borrow', function(req, res) {
                       throw err;
                   });
               }
+              req.session.cart = []
               res.send({success:true});
           });
       });

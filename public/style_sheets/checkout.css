@@ -128,3 +128,7 @@ h1{
 .btn:active{
     background-color: #2d3c1f !important;
 }
+.container#empty-cart{
+    margin-top: 336px;
+    color: antiquewhite;
+}
