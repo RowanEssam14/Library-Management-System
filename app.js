@@ -1,11 +1,11 @@
 const express = require('express');
-const session = require('express-session'); 
+const session = require('express-session');
 const app = express();
 const port = 3300;
 
 // Set up session middleware to be used across multiple routes
 app.use(session({
-  secret: 'my-secret-key', 
+  secret: 'my-secret-key',
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 30 * 60 * 1000 }
@@ -19,7 +19,7 @@ const path = require('path');
 
 // Specify the static files directory
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
 // Import the routes
 const booksRouter = require('./routes/books');
@@ -27,8 +27,9 @@ const bookDataRouter = require('./routes/bookData');
 const userLoginRouter = require('./routes/userLogin');
 const controllerRouter = require('./routes/controller');
 const checkoutRouter = require('./routes/checkout');
-/*const loginAdminRouter = require('./routes/loginAdmin');
-const loginLibrarianRouter = require('./routes/loginLibrarian');*/
+const adminLoginRouter = require('./routes/adminLogin');
+const adminInterfaceRouter = require('./routes/adminInterface');
+//const loginLibrarianRouter = require('./routes/loginLibrarian');
 
 // Use the books route
 app.use('/books', booksRouter);
@@ -36,8 +37,9 @@ app.use('/bookData', bookDataRouter);
 app.use('/userLogin', userLoginRouter);
 app.use('/controller', controllerRouter);
 app.use('/checkout',checkoutRouter)
-/*app.use('/loginAdmin', loginAdminRouter);
-app.use('/loginLibrarian', loginLibrarianRouter);*/
+app.use('/adminLogin', adminLoginRouter);
+app.use('/adminInterface', adminInterfaceRouter);
+//app.use('/loginLibrarian', loginLibrarianRouter);
 
 // Starting the server
 app.listen(port, function() {

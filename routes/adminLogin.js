@@ -16,24 +16,23 @@ connection.connect((err) => {
  });
 
  router.get('/', function(req, res) {
-  res.render('userLogin', { errorMessage: null });
+  console.log('adminLogin get request hit');
+  res.render('adminLogin', { errorMessage: null });
   });
 
   router.post('/', function(req, res) {
     const { library_id, password } = req.body;
-    connection.query('SELECT * FROM user INNER JOIN user_x_role ON user.user_id = user_x_role.user_id INNER JOIN role ON user_x_role.role_id = role.role_id WHERE library_id = ? AND password = ? ', [library_id, password], function(error, results, fields) {
+    console.log('adminLogin post request hit');
+    connection.query('SELECT * FROM user INNER JOIN user_x_role ON user.user_id = user_x_role.user_id INNER JOIN role ON user_x_role.role_id = role.role_id WHERE library_id = ? AND password = ? AND role_name = "admin" ', [library_id, password], function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
             req.session.loggedin = true;
             req.session.username = library_id;
-            req.session.max_borrow = results[0].max_borrow ;
-            req.session.user_id = results[0].user_id;
             req.session.role = results[0].role_name;
-            console.log("User logged in successfully of max_borrow:" + req.session.max_borrow + " and role:" + req.session.role);
-            res.redirect('http://localhost:3300/books'); // Redirect to the books page upon successful login
+            res.render('adminInterface');
         } else {
           console.log("wrong password");
-            res.render('userLogin', { errorMessage: 'Invalid login credentials!' }); // Render the login page with an error message
+            res.render('adminLogin', { errorMessage: 'Invalid login credentials!' });
         }
     });
 });
