@@ -27,8 +27,8 @@ const bookDataRouter = require('./routes/bookData');
 const userLoginRouter = require('./routes/userLogin');
 const controllerRouter = require('./routes/controller');
 const checkoutRouter = require('./routes/checkout');
-const adminLoginRouter = require('./routes/adminLogin');
-const adminInterfaceRouter = require('./routes/adminInterface');
+const adminLoginRouter = require('./routes/administration/adminLogin');
+const adminInterfaceRouter = require('./routes/administration/adminInterface');
 //const loginLibrarianRouter = require('./routes/loginLibrarian');
 
 // Use the books route

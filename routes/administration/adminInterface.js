@@ -17,9 +17,9 @@ connection.connect((err) => {
 
  router.get('/', function(req, res) {
     if (req.session.loggedin && req.session.role === 'admin') { //or librarian , render management page,pass the role name then we can use it in the nav bar to manage access according to role
-      res.render('adminInterface');
+      res.render('administration/adminInterface');
     } else {
-      res.redirect('http://localhost:3300/userLogin');
+      res.redirect('http://localhost:3300/adminLogin');
     }
   });
 

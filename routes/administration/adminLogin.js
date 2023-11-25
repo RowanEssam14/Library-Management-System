@@ -17,7 +17,7 @@ connection.connect((err) => {
 
  router.get('/', function(req, res) {
   console.log('adminLogin get request hit');
-  res.render('adminLogin', { errorMessage: null });
+  res.render('administration/adminLogin', { errorMessage: null });
   });
 
   router.post('/', function(req, res) {
@@ -29,10 +29,10 @@ connection.connect((err) => {
             req.session.loggedin = true;
             req.session.username = library_id;
             req.session.role = results[0].role_name;
-            res.render('adminInterface');
+            res.redirect('http://localhost:3300/adminInterface');
         } else {
           console.log("wrong password");
-            res.render('adminLogin', { errorMessage: 'Invalid login credentials!' });
+            res.render('administration/adminLogin', { errorMessage: 'Invalid login credentials!' });
         }
     });
 });
