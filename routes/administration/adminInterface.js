@@ -16,11 +16,27 @@ connection.connect((err) => {
  });
 
  router.get('/', function(req, res) {
-    if (req.session.loggedin && req.session.role === 'admin') { //or librarian , render management page,pass the role name then we can use it in the nav bar to manage access according to role
-      res.render('administration/adminInterface');
+  if (req.session.loggedin && req.session.role === 'admin') {
+    connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE is_deleted = 0 ORDER BY role.role_name ASC', (error, results, fields) => {
+      if (error) throw error;
+      res.render('administration/adminInterface', { user: results });
+    });
+  } else {
+    res.redirect('http://localhost:3300/adminLogin');
+  }
+});
+
+router.delete('/delete/:id', function(req, res) {
+  const user_id = req.params.id;
+
+  connection.query('UPDATE user SET is_deleted = 1 WHERE user_id = ?', [user_id], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
     } else {
-      res.redirect('http://localhost:3300/adminLogin');
+      res.send({ success: true });
     }
   });
+});
 
   module.exports = router;

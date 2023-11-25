@@ -5,7 +5,6 @@
   html,body {
     margin: 0;
     padding: 0;
-    /* background-color: #fff; */
     color: #555;
     font-family: 'Montserrat', sans-serif;
     /* font-weight: 300;
@@ -53,4 +52,50 @@ div#navbarSupportedContent{
 }
 .dropdown-menu{
     min-width: 8.5rem;
+}
+/*--------------------------------------------------------------
+# Table
+--------------------------------------------------------------*/
+.container#manage-users{
+    margin-top: 5rem;
+}
+.btn {
+    background-color: #727c57;
+    border-color: #727c57;
+    color: white;
+}
+.btn:hover{
+    background-color: #2d3c1f;
+    border-color: #2d3c1f;
+}
+
+table thead th{
+    border: none !important;
+}
+table thead th, table tbody td {
+    color: #000 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
+}
+.edit-btn,.delete-btn{
+    border: none;
+    background-color: transparent;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+.delete-btn:hover,.edit-btn:hover{
+    color: antiquewhite;
+}
+#deleteModal .modal-header{
+    border-bottom: none;
+}
+#deleteModal .modal-footer {
+    border-top: none;
+}
+.modal-body{
+    color:#2d3c1f;
+    font-size: 18px;
 }

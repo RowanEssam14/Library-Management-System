@@ -23,7 +23,7 @@ connection.connect((err) => {
   router.post('/', function(req, res) {
     const { library_id, password } = req.body;
     console.log('adminLogin post request hit');
-    connection.query('SELECT * FROM user INNER JOIN user_x_role ON user.user_id = user_x_role.user_id INNER JOIN role ON user_x_role.role_id = role.role_id WHERE library_id = ? AND password = ? AND role_name = "admin" ', [library_id, password], function(error, results, fields) {
+    connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE library_id = ? AND password = ? AND role_name = "admin" AND is_deleted = 0', [library_id, password], function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
             req.session.loggedin = true;
