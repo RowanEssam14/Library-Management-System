@@ -16,15 +16,37 @@ connection.connect((err) => {
     console.log('Connected to the MySQL database.');
  });
 
- router.get('/', function(req, res) {
+
+router.get('/', function(req, res) {
   if (req.session.loggedin && req.session.role === 'admin') {
-    connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE is_deleted = 0 ORDER BY role.role_name ASC', (error, results, fields) => {
+    connection.query('SELECT * FROM role', (error, roles, fields) => {
       if (error) throw error;
-      res.render('administration/adminInterface', { user: results });
+      connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE is_deleted = 0 ORDER BY role.role_name ASC', (error, users, fields) => {
+        console.log(roles)
+        if (error) throw error;
+        res.render('administration/adminInterface', { user: users, roles: roles });
+      });
     });
   } else {
     res.redirect('http://localhost:3300/adminLogin');
   }
+});
+
+router.post('/addUser', function(req, res) {
+  console.log('add user hit');
+  var libraryId = req.body.libraryId;
+  var password = req.body.password;
+  var role = req.body.role;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  connection.query('INSERT INTO user (library_id, password, role_id, is_deleted) VALUES (?, ?, ?, 0)', [libraryId, hashedPassword, role], function(error, results, fields) {
+    if (error) {
+      console.error(error);
+      res.send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
 });
 
 router.delete('/delete/:id', function(req, res) {
@@ -40,18 +62,20 @@ router.delete('/delete/:id', function(req, res) {
   });
 });
 
-router.post('/update', function(req, res) {
-  const { libraryId, role } = req.body;
+// router.post('/update', function(req, res) {
+//   const { libraryId, role } = req.body;
+//   console.log(libraryId,role)
 
-  connection.query('UPDATE user SET role_id = (SELECT role_id FROM role WHERE role_name = ?) WHERE library_id = ?', [role, libraryId], (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send({ success: false, message: 'Database error' });
-    } else {
-      res.send({ success: true });
-    }
-  });
-});
+//   connection.query('UPDATE user SET role_id = (SELECT role_id FROM `role` WHERE `role`.role_name = ?) WHERE user.library_id = ?', [role, libraryId], (error, results, fields) => {
+//     if (error) {
+//       console.error(error);
+//       res.status(500).send({ success: false, message: 'Database error' });
+//     } else {
+//       res.send({ success: true });
+//     }
+//   });
+// });
+
 
 router.post('/changePassword/:id', function(req, res) {
   const userId = req.params.id;
