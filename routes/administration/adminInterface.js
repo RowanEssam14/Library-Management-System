@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
 
 // Create a MySQL connection
 const connection = mysql.createConnection({
@@ -30,6 +31,35 @@ router.delete('/delete/:id', function(req, res) {
   const user_id = req.params.id;
 
   connection.query('UPDATE user SET is_deleted = 1 WHERE user_id = ?', [user_id], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
+router.post('/update', function(req, res) {
+  const { libraryId, role } = req.body;
+
+  connection.query('UPDATE user SET role_id = (SELECT role_id FROM role WHERE role_name = ?) WHERE library_id = ?', [role, libraryId], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
+router.post('/changePassword/:id', function(req, res) {
+  const userId = req.params.id;
+  const newPassword = req.body.newPassword;
+  // Hash the new password before storing it in the database
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+  connection.query('UPDATE user SET password = ? WHERE user_id = ?', [hashedPassword, userId], (error, results, fields) => {
     if (error) {
       console.error(error);
       res.status(500).send({ success: false, message: 'Database error' });

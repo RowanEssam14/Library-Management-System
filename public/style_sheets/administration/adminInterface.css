@@ -79,23 +79,33 @@ table thead th, table tbody td {
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, .05);
 }
-.edit-btn,.delete-btn{
+/*--------------------------------------------------------------
+# Actions (Change password, Edit, Delete)
+--------------------------------------------------------------*/
+.edit-btn,.delete-btn,.change-password-btn{
     border: none;
     background-color: transparent;
     color: #000;
     text-decoration: none;
     font-weight: bold;
 }
-.delete-btn:hover,.edit-btn:hover{
+.delete-btn:hover,.edit-btn:hover,.change-password-btn:hover{
     color: antiquewhite;
+}
+
+/*--------------------------------------------------------------
+# Modals
+--------------------------------------------------------------*/
+.modal-body{
+    color:#2d3c1f;
+    font-size: 18px;
+}
+#changePasswordModal #newPassword , #ID{
+    font-weight: bold;
 }
 #deleteModal .modal-header{
     border-bottom: none;
 }
 #deleteModal .modal-footer {
     border-top: none;
-}
-.modal-body{
-    color:#2d3c1f;
-    font-size: 18px;
 }
