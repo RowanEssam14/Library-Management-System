@@ -29,6 +29,7 @@ const controllerRouter = require('./routes/controller');
 const checkoutRouter = require('./routes/checkout');
 const adminLoginRouter = require('./routes/administration/adminLogin');
 const adminInterfaceRouter = require('./routes/administration/adminInterface');
+const bookMangementRouter = require('./routes/administration/bookMangement');
 //const loginLibrarianRouter = require('./routes/loginLibrarian');
 
 // Use the books route
@@ -39,6 +40,7 @@ app.use('/controller', controllerRouter);
 app.use('/checkout',checkoutRouter)
 app.use('/adminLogin', adminLoginRouter);
 app.use('/adminInterface', adminInterfaceRouter);
+app.use('/bookMangement',bookMangementRouter);
 //app.use('/loginLibrarian', loginLibrarianRouter);
 
 // Starting the server

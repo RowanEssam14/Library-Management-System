@@ -77,7 +77,7 @@ table thead th, table tbody td {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, .05);
+    background-color:  rgba(0, 0, 0, .05);
 }
 /*--------------------------------------------------------------
 # Actions (Change password, Edit, Delete)
@@ -92,21 +92,16 @@ table thead th, table tbody td {
 .delete-btn:hover,.edit-btn:hover,.change-password-btn:hover{
     color: antiquewhite;
 }
-
-/*--------------------------------------------------------------
-# Modals
---------------------------------------------------------------*/
-.modal-body{
-    color:#2d3c1f;
-    font-size: 18px;
-}
-#changePasswordModal #newPassword , #ID{
-    font-weight: bold;
-}
-#deleteModal .modal-header{
-    border-bottom: none;
-}
-#deleteModal .modal-footer {
-    border-top: none;
-}
-
+.description-cell, .image-path-cell, .pdf-path-cell {
+    max-width: 250px; /* Adjust this value as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .description-cell:hover, .image-path-cell:hover, .pdf-path-cell:hover {
+    max-height: none;
+    /*white-space: normal; // will make the text expand*/
+  }
+/*
+  perfect match: light brown:#6c5c4d94 ft #e1dad2
+*/
