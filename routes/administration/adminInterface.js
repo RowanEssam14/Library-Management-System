@@ -84,4 +84,17 @@ router.post('/changePassword/:id', function(req, res) {
   });
 });
 
+router.post('/update',function(req,res){
+  const library_id = req.body.libraryId;
+  const role_id = req.body.roleId;
+  connection.query('UPDATE user SET role_id = ? WHERE library_id = ? ',[role_id,library_id], function(error,result){
+    if(error) {
+      console.error(error);
+      res.send({success: false, message: 'Database error'})
+    }else{
+        res.send({success:true})
+      }
+    })
+  });
+
   module.exports = router;

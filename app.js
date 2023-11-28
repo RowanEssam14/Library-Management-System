@@ -46,5 +46,7 @@ app.use('/bookMangement',bookMangementRouter);
 // Starting the server
 app.listen(port, function() {
   console.log(`Server listening on port ${port}`);
+  console.log(`To access the application, please visit %chttp://localhost:3300/controller/index.`, 'color: blue; text-decoration: underline;');
+
 });
 
