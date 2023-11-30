@@ -3,7 +3,7 @@ const session = require('express-session');
 const app = express();
 const port = 3300;
 
-// Set up session middleware to be used across multiple routes
+// Setting up session middleware to be acessible across multiple routes
 app.use(session({
   secret: 'my-secret-key',
   resave: true,
@@ -13,9 +13,6 @@ app.use(session({
 
 // Setting the view engine to EJS
 app.set('view engine', 'ejs');
-
-// Import the necessary path module from Node.js
-const path = require('path');
 
 // Specify the static files directory
 app.use(express.static('public'));

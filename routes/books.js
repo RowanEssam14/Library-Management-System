@@ -69,11 +69,10 @@ router.get('/', cacheMiddleware, function(req, res) {
 //endpoint for handling the reserve button
 router.post('/reserve', function(req, res) {
   console.log('reserve endpoint hit');
-  //if user is logged store book_id & no of copies available
+  //if user is logged in store book_id & no of copies available
   if (req.session.loggedin) {
-    console.log('user is already logged in of MAXBORROW: '+ req.session.max_borrow);
     const { book_id , no_of_copies } = req.body;
-    //Checking if the book is in stock
+    //Checking if the book is in the stock
     if (no_of_copies == 0) {
       res.json({status: 'out_of_stock'});
       return;
@@ -88,36 +87,31 @@ router.post('/reserve', function(req, res) {
       res.json({status: 'already_reserved'});
       return;
     }
-
-    // Check if the borrower_id exists in the table and status equals ('online_reservation','borrowed','overdue')
+    // The where condition in the query checks that the user doesn't have an active borrowing if the borrower_id exists in the table and status equals ('online_reservation','borrowed','overdue')
     connection.query('SELECT * FROM `borrow` WHERE `borrower_id` = ? AND `status` IN (?, ?, ?)', [req.session.user_id, 'online_reservation', 'borrowed', 'overdue'], function(error, results, fields) {
       if (error) {
         throw error;
       }
-
-      // If the borrower_id doesn't exist or the status equals ('online_reservation','borrowed','overdue'), then proceed with the transaction
+      // if the results returned from the query equals 0 that means the user doesn't have an active borrow and can reserve books
       if (results.length === 0) {
         // If the cart exist push book_id
         if (req.session.cart) {
           req.session.cart.push(book_id);
-          console.log("nth number being added: of id " + book_id);
-          console.log("Number of books reserved is: }" +req.session.cart.length+"The array is: "+ req.session.cart);
           res.json({status: 'success'});
         } else { //if the cart doesn't exist , initialize it and add the book_id
           req.session.cart = [book_id];
           console.log("First element added of book_id:"+ req.session.cart + "no. of copies are: " + no_of_copies);
           res.json({status: 'success'});
         }
-      } else {
+      } else { //if the query returned a result, this means that the user have an active borrow and cannot borrow again
         res.json({status: 'two_borrows'});
       }
     });
-  } else {
-    // If the user is not logged in, redirect them to the login page
+  } else { // If the user is not logged in, redirect them to the login page
     console.log('user needs to login')
     res.json({status: 'redirect', url: 'http://localhost:3300/userLogin'});
   }
 });
 
-
 module.exports = router;
+

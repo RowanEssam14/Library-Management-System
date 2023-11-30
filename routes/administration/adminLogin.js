@@ -36,7 +36,7 @@ connection.connect((err) => {
             res.redirect('http://localhost:3300/adminInterface');
           } else {
             console.log("wrong password");
-            res.render('administration/adminLogin', { errorMessage: 'Invalid login credentials!' });
+            res.render('administration/adminLogin', { errorMessage: 'Invalid login credentials!', role: req.session.role });
           }
         });
       } else {

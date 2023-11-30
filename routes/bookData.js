@@ -45,11 +45,8 @@ router.get('/:id/preview', function(req, res) {
     if (error) throw error;
 
     try {
-      console.log("Entered preview route successfully")
       const pdfPathFromDb = results[0].pdf_path.trim();
-      console.log(pdfPathFromDb);
 
-      // Replace this with the actual path to your PDF files
       const pdfPath = path.join(__dirname, '..', 'public', 'assets', 'pdfs',pdfPathFromDb );
       const originalPdfBytes = fs.readFileSync(pdfPath);
       const pdfDoc = await PDFDocument.load(originalPdfBytes);
@@ -67,9 +64,9 @@ router.get('/:id/preview', function(req, res) {
 
       // Create a Readable stream and pipe it to the response
       const readableStream = new require('stream').Readable();
-      readableStream._read = () => {}; // _read is required but you can noop it
+      readableStream._read = () => {};
       readableStream.push(pdfBytes);
-      readableStream.push(null); // indicates end-of-file basically - the end of the stream
+      readableStream.push(null); // indicateds we have reached the end of the file thus teh end of the steam-
       readableStream.pipe(res); // pipe the stream to the response
 
     } catch (error) {
