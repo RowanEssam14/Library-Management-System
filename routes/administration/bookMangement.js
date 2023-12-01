@@ -97,6 +97,19 @@ router.post('/updateBook', function(req, res) {
   });
 });
 
+router.delete('/delete/:id', function(req, res) {
+  const bookID = req.params.id;
+  console.log("FROM the delete endpoint bookID = " + bookID);
+
+  connection.query('DELETE FROM book WHERE book_id = ?', [bookID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
 module.exports = router;
 /*
 SELECT borrow.borrow_id, borrow.borrower_id, borrow.librarian_id, borrow.borrow_date, borrow.due_date, borrow.status, borrow.details, GROUP_CONCAT(book.title SEPARATOR ', ') as books,

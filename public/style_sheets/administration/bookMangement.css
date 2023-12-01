@@ -92,14 +92,14 @@ table thead th, table tbody td {
 /*--------------------------------------------------------------
 # Actions (Change password, Edit, Delete)
 --------------------------------------------------------------*/
-.edit-book-btn,.delete-btn,.change-password-btn{
+.edit-book-btn,.delete-book-btn,.change-password-btn{
     border: none;
     background-color: transparent;
     color: #000;
     text-decoration: none;
     font-weight: bold;
 }
-.delete-btn:hover,.edit-btn:hover,.change-password-btn:hover{
+.delete-book-btn:hover,.edit-book-btn:hover,.change-password-btn:hover{
     color: antiquewhite;
 }
 .description-cell, .image-path-cell, .pdf-path-cell {
