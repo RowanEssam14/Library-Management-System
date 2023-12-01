@@ -54,10 +54,20 @@ div#navbarSupportedContent{
     min-width: 8.5rem;
 }
 /*--------------------------------------------------------------
+# Table's buttons
+--------------------------------------------------------------*/
+#tables .btn{
+    margin: 0px 7px ;
+}
+#tables #genre_table_button{
+    margin-left: 5px;
+}
+/*--------------------------------------------------------------
 # Table
 --------------------------------------------------------------*/
-.container#manage-users{
-    margin-top: 5rem;
+.container-fluid#manage-books{
+    margin-top: 100px;
+    padding: 0px 10px;
 }
 .btn {
     background-color: #727c57;
@@ -82,7 +92,7 @@ table thead th, table tbody td {
 /*--------------------------------------------------------------
 # Actions (Change password, Edit, Delete)
 --------------------------------------------------------------*/
-.edit-btn,.delete-btn,.change-password-btn{
+.edit-book-btn,.delete-btn,.change-password-btn{
     border: none;
     background-color: transparent;
     color: #000;

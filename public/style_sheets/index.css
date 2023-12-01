@@ -1,9 +1,8 @@
 :root {
     scroll-behavior: smooth;
   }
-  
+
   html,body {
-    
     margin: 0;
     padding: 0;
     /* background-color: #fff; */
@@ -12,21 +11,21 @@
     /* font-weight: 300;
     font-size: 20px; */
     text-rendering: optimizeLegibility;
-    
+
 }
 /*--------------------------------------------------------------
 # background Image
 --------------------------------------------------------------*/
 
 .hero{
-    background-image: url("assets/cropped.jpg");   
+    background-image: url("assets/cropped.jpg");
     height: 100vh;
     background-position: center;
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7) ),url('/assets/cropped.jpg');
-    
+
 }
 
 /*--------------------------------------------------------------
@@ -34,7 +33,6 @@
 --------------------------------------------------------------*/
 .navbar{
     background-color: #e1dad2;
-
 }
 div.container-fluid{
     padding:0px;
@@ -100,7 +98,6 @@ div#navbarSupportedContent{
   background-color: #2d3c1f;
 }
 
-
 /*--------------------------------------------------------------
 # Features
 --------------------------------------------------------------*/
@@ -115,10 +112,9 @@ div#navbarSupportedContent{
   padding-bottom: 20px;
 }
 .feature-name { /*h2 tag*/
-  font-size: 36px; 
-  margin-bottom: 20px; 
+  font-size: 36px;
+  margin-bottom: 20px;
   color: #FFF9E6;
-  ;
 }
 /*Styling the feature list*/
 .features .feature-list{
@@ -144,13 +140,12 @@ div#navbarSupportedContent{
   font-weight: 900;
   margin:0 5px 0 -15px;
   color: #727c57;
-  
-} 
+}
 /*end of styling of feature list*/
 .features #reversed-row{
   flex-direction: row-reverse;
   background-color: antiquewhite;
-} 
+}
 .features #reversed-row h2,li{
   color: #2d3c1f ;
 }
