@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,100;1,500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style_sheets/administration/reservationsManagement.css">
+</head>
+<body>
+    <div class="container-fluid">
+
+        <nav class="navbar navbar-expand-md navbar-expand-lg fixed-top navbar-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="/assets/icons8-open-book-50.svg" alt="" width="30" height="24">
+              Book Worms
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="http://localhost:3300/adminInterface">Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://localhost:3300/bookMangement">Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3300/borrowManagement">Borrow</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reservations</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://localhost:3300/adminLogin/Logout">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container pt-5" id="manage-reservations">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Borrower Library ID</th>
+                                <th scope="col">borrow_date</th>
+                                <th scope="col">due_date</th>
+                                <th scope="col">status</th>
+                                <th scope="col">books</th>
+                                <th scope="col">details</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <% reservations.forEach(reservation => { %>
+                            <tr>
+                              <td><%= reservation.library_id %></td>
+                              <td><%= reservation.borrow_date ? new Date(reservation.borrow_date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') : 'N/A' %></td>
+                              <td><%= reservation.due_date ? new Date(reservation.due_date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') : 'N/A' %></td>
+                              <td><%= reservation.status %></td>
+                              <td data-toggle="tooltip" title="<%= reservation.books %>"><%= reservation.books %></td>
+                              <td data-toggle="tooltip" title="<%= reservation.details %>"><%= reservation.details %></td>
+                              <td>
+                                <button class="btn btn-link edit-btn" data-toggle="tooltip" title="Edit" data-borrowerlibraryid="<%= reservation.library_id %>" data-borrowdate="<%= reservation.borrow_date %>" data-duedate="<%= reservation.due_date %>" data-status="<%= reservation.status %>" data-details="<%= reservation.details %>" data-books="<%= reservation.books %>" data-borrowid="<%= reservation.borrow_id %>">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                              <td>
+                                <button class="btn btn-link delete-btn" data-toggle="tooltip" title="Delete" data-reservationid = "<%= reservation.reservation_id %>">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit Author</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="editForm">
+                    <div class="form-group">
+                      <label for="edit-borrowerLibraryID">Borrower Library ID</label>
+                      <input type="text" class="form-control" id="edit-borrowerLibraryID" readonly data-toggle="tooltip" title="This field cannot be edited">
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-borrowDate" class="col-form-label">Borrow Date:</label>
+                      <input type="date" class="form-control" id="edit-borrowDate" readonly data-toggle="tooltip" title="This field cannot be edited">
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-dueDate" class="col-form-label">Due Date:</label>
+                      <input type="date" class="form-control" id="edit-dueDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-status" class="col-form-label">Status:</label>
+                        <select class="form-control" id="edit-status">
+                          <option value="online_reservation">Online Reservation</option>
+                          <option value="borrowed">Borrowed</option>
+                          <option value="cancelled">Cancelled</option>
+
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="edit-details" class="col-form-label">Details:</label>
+                      <input type="text" class="form-control" id="edit-details">
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-books" class="col-form-label" >Books:</label>
+                      <input type="text" class="form-control" id="edit-books" readonly data-toggle="tooltip" title="This field cannot be edited" >
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="submitEdit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b042d509f8.js" crossorigin="anonymous"></script>
+
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('.edit-btn').on('click', function() {
+            console.log('Edit button hit');
+            const borrowerLibraryID = $(this).data('borrowerlibraryid');
+            const borrowDate = new Date($(this).data('borrowdate'));
+            const formattedBorrowDate = borrowDate.toISOString().split('T')[0];
+            const dueDate = new Date($(this).data('duedate'));
+            const status =$(this).data('status');
+            const details = $(this).data('details');
+            const books = $(this).data('books');
+
+            $('#edit-borrowerLibraryID').val(borrowerLibraryID);
+            $('#edit-borrowDate').val(formattedBorrowDate);
+            $('#edit-status').val(status);
+            $('#edit-details').val(details);
+            $('#edit-books').val(books);
+
+            $('#editModal').modal('show');
+            });
+
+        $('#submitEdit').on('click', function() {
+          console.log('submit edit hit');
+          const dueDate = $('#edit-dueDate').val();
+          const details = $('#edit-details').val();
+          const borrowID = $('.edit-btn').data('borrowid');
+          const status = $('#edit-status').val();
+          // Perform update request
+          $.ajax({
+            url: '/reservationsManagement/update',
+            type: 'POST',
+            data: {
+                details: details,
+                dueDate: dueDate,
+                status: status,
+                borrowID: borrowID
+            },
+            success: function(response) {
+              if (response.success) {
+                location.reload();
+              }
+            },
+            error: function(error) {
+              console.error('Error:', error);
+            }
+          });
+
+          $('#editModal').modal('hide');
+        });
+
+    });
+    </script>
+</body>
+</html>
