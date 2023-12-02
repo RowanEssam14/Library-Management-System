@@ -39,7 +39,6 @@ router.post('/addAuthor', function(req, res) {
   const authorMiddleName  = req.body.authorMiddleName;
   const authorLastName  = req.body.authorLastName;
   const authorSpecialization  = req.body.authorSpecialization;
-  const authorID = req.body.authorID;
 
   connection.query('INSERT INTO author (author_first_name, author_middle_name, author_last_name, specialization) VALUES (?, ?, ?, ?)', [authorFirstName, authorMiddleName, authorLastName,authorSpecialization], function(error, results, fields) {
     if (error) {

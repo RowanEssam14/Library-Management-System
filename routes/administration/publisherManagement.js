@@ -33,15 +33,16 @@ connection.connect((err) => {
   }
 });
 
-router.delete('/delete/:id', function(req, res) {
-  const publisherID = req.params.id;
-  console.log('delete publsiher endpoint hit',publisherID);
+router.post('/addPublisher', function(req, res) {
+  console.log('add publisher hit');
 
+  const publisherFirstName = req.body.publisherFirstName;
+  const publisherLastName  = req.body.publisherLastName;
 
-  connection.query('UPDATE publisher SET is_deleted = 1 WHERE publisher_id = ?', [publisherID], (error, results, fields) => {
+  connection.query('INSERT INTO publisher (publisher_first_name, publisher_last_name) VALUES (?, ?)', [publisherFirstName, publisherLastName], function(error, results, fields) {
     if (error) {
       console.error(error);
-      res.status(500).send({ success: false, message: 'Database error' });
+      res.send({ success: false, message: 'Database error' });
     } else {
       res.send({ success: true });
     }
@@ -62,6 +63,22 @@ router.post('/update',function(req,res){
       }
     })
   });
+
+router.delete('/delete/:id', function(req, res) {
+  const publisherID = req.params.id;
+  console.log('delete publsiher endpoint hit',publisherID);
+
+
+  connection.query('UPDATE publisher SET is_deleted = 1 WHERE publisher_id = ?', [publisherID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
 
 
 
