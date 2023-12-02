@@ -47,4 +47,18 @@ router.delete('/delete/:id', function(req, res) {
   });
 });
 
+router.post('/update',function(req,res){
+  const genreName = req.body.genreName;
+  const genreID = req.body.genreID;
+
+  connection.query('UPDATE genre SET genre_name = ? WHERE genre_id = ? ',[genreName,genreID], function(error,result){
+    if(error) {
+      console.error(error);
+      res.send({success: false, message: 'Database error'})
+    }else{
+        res.send({success:true})
+      }
+    })
+  });
+
   module.exports = router;

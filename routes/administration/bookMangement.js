@@ -26,15 +26,15 @@ router.get('/', function(req, res) {
       if (error) throw error;
 
       // Fetch authors
-      connection.query('SELECT * FROM author', function(error, authors, fields) {
+      connection.query('SELECT * FROM author WHERE is_deleted = 0', function(error, authors, fields) {
         if (error) throw error;
 
         // Fetch publishers
-        connection.query('SELECT * FROM publisher', function(error, publishers, fields) {
+        connection.query('SELECT * FROM publisher WHERE is_deleted = 0', function(error, publishers, fields) {
           if (error) throw error;
 
           // Fetch genres
-          connection.query('SELECT * FROM genre', function(error, genres, fields) {
+          connection.query('SELECT * FROM genre WHERE is_deleted = 0', function(error, genres, fields) {
             if (error) throw error;
 
             console.log(results);
