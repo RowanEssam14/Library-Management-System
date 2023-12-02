@@ -110,6 +110,48 @@ router.delete('/delete/:id', function(req, res) {
     }
   });
 });
+
+router.post('/addBook', function(req, res) {
+  console.log('add book hit');
+  var title = req.body.title;
+  var ISBN = req.body.ISBN;
+  var no_of_copies = req.body.no_of_copies;
+  var language = req.body.language;
+  var author_id = req.body.author_id;
+  var genre_id = req.body.genre_id;
+  var publisher_id = req.body.publisher_id;
+  var publish_date = req.body.publish_date;
+  var file_path = req.body.file_path;
+  var pdf_path = req.body.pdf_path;
+  var book_description = req.body.book_description;
+
+  connection.query('INSERT INTO book (author_id, title, ISBN, language, publish_date, no_of_copies, book_description, file_path, pdf_path, is_deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)', [author_id, title, ISBN, language, publish_date, no_of_copies, book_description, file_path, pdf_path], function(error, results, fields) {
+    if (error) {
+      console.error(error);
+      res.send({ success: false, message: 'Database error' });
+    } else {
+      var book_id = results.insertId;
+      connection.query('INSERT INTO book_x_genre (book_id, genre_id) VALUES (?, ?)', [book_id, genre_id], function(error, results, fields) {
+        if (error) {
+          console.error(error);
+          res.send({ success: false, message: 'Database error' });
+        } else {
+          connection.query('INSERT INTO book_x_publisher (book_id, publisher_id) VALUES (?, ?)', [book_id, publisher_id], function(error, results, fields) {
+            if (error) {
+              console.error(error);
+              res.send({ success: false, message: 'Database error' });
+            } else {
+              res.send({ success: true });
+            }
+          });
+        }
+      });
+    }
+  });
+
+});
+
+
 module.exports = router;
 /*
 SELECT borrow.borrow_id, borrow.borrower_id, borrow.librarian_id, borrow.borrow_date, borrow.due_date, borrow.status, borrow.details, GROUP_CONCAT(book.title SEPARATOR ', ') as books,

@@ -49,12 +49,12 @@
     <div class="container-fluid pt-5" id="manage-books">
         <div class="row">
           <div class="col-6 text-left">
-            <button class="btn" data-bs-toggle="" data-bs-target="">+ New Book</button>
+            <button class="btn" id="add-book-btn" data-bs-toggle="modal" data-bs-target="#addBookModal">+ New Book</button>
         </div>
         <div class="col-6 d-flex justify-content-end " id="tables">
-            <button class="btn" data-bs-toggle="" data-bs-target="">Author</button>
-            <button class="btn" data-bs-toggle="" data-bs-target="">Publisher</button>
-            <button class="btn" data-bs-toggle="" data-bs-target="" id="genre_table_button">Genre</button>
+            <button class="btn" >Author</button>
+            <button class="btn">Publisher</button>
+            <button class="btn" id="genre_table_button">Genre</button>
         </div>
         </div>
         <div class="row mt-4">
@@ -108,6 +108,84 @@
                 </table>
             </div>
         </div>
+    </div>
+    <!--- Modals -->
+
+    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBookModalLabel">Add New Book</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addBookForm">
+              <div class="form-group">
+                <label for="add-BookTitle">Title:</label>
+                <input type="text" class="form-control" id="add-BookTitle">
+              </div>
+              <div class="form-group">
+                <label for="add-BookISBN">ISBN:</label>
+                <input type="text" class="form-control" id="add-BookISBN">
+              </div>
+              <div class="form-group">
+                <label for="add-BookStock">Number of copies:</label>
+                <input type="number" class="form-control" id="add-BookStock">
+              </div>
+              <div class="form-group">
+                <label for="add-BookLanguage">Language:</label>
+                <input type="text" class="form-control" id="add-BookLanguage" data-toggle="tooltip"  pattern=".{3}"  title="Please enter language in 3 character format only">
+              </div>
+              <div class="form-group">
+                <label for="add-authorID">Author</label>
+                <select class="form-control" id="add-authorID">
+                  <% authors.forEach(function(author) { %>
+                    <option value="<%= author.author_id %>"><%= author.author_first_name %> <%= author.author_last_name %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="add-genreID" class="col-form-label">Genre:</label>
+                <select class="form-control" id="add-genreID">
+                  <% genres.forEach(function(genre) { %>
+                    <option value="<%= genre.genre_id %>"><%= genre.genre_name %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="add-publisherID" class="col-form-label">Publisher:</label>
+                <select class="form-control" id="add-publisherID">
+                  <% publishers.forEach(function(publisher) { %>
+                    <option value="<%= publisher.publisher_id %>"><%= publisher.publisher_first_name %> <%= publisher.publisher_last_name %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="add-bookPublishDate" class="col-form-label">Publish date:</label>
+                <input type="date" class="form-control" id="add-bookPublishDate">
+              </div>
+              <div class="form-group">
+                <label for="add-ImagePath">Image Path:</label>
+                <input type="text" class="form-control" id="add-ImagePath">
+              </div>
+              <div class="form-group">
+                <label for="add-PdfPath">Pdf path:</label>
+                <input type="text" class="form-control" id="add-PdfPath">
+              </div>
+              <div class="form-group">
+                <label for="add-BookDescription">Description:</label>
+                <input type="text" class="form-control" id="add-BookDescription">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="submitAddBook">Add</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true">
@@ -214,6 +292,57 @@
     <script>
       $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+
+        $('#submitAddBook').click(function(e) {
+          e.preventDefault();
+          console.log('submit button is hit');
+
+          // Get form data
+          var title = $('#add-BookTitle').val();
+          var ISBN = $('#add-BookISBN').val();
+          var no_of_copies = $('#add-BookStock').val();
+          var language = $('#add-BookLanguage').val();
+          var author_id = $('#add-authorID').val();
+          var genre_id = $('#add-genreID').val();
+          var publisher_id = $('#add-publisherID').val();
+          var publish_date = $('#add-bookPublishDate').val();
+          var file_path = $('#add-ImagePath').val();
+          var pdf_path = $('#add-PdfPath').val();
+          var book_description = $('#add-BookDescription').val();
+          console.log("publisher id: " + publisher_id);
+          console.log("genre id: " + genre_id);
+          console.log("authorid: " + author_id);
+          // Send POST request
+          $.ajax({
+            url: '/bookMangement/addBook',
+            type: 'POST',
+            data: {
+              title: title,
+              ISBN: ISBN,
+              no_of_copies: no_of_copies,
+              language: language,
+              author_id: author_id,
+              genre_id: genre_id,
+              publisher_id: publisher_id,
+              publish_date: publish_date,
+              file_path: file_path,
+              pdf_path: pdf_path,
+              book_description: book_description
+            },
+            success: function(data) {
+              if (data.success) {
+                alert('Book added successfully!');
+                $('#addBookModal').modal('hide');
+                location.reload();
+              } else {
+                alert('Error: ' + data.message);
+              }
+            }
+          });
+  });
+
+
+
 
         $('.edit-book-btn').on('click', function() {
           const bookId = $(this).data('bookid');
