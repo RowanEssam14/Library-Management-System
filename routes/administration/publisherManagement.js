@@ -48,6 +48,21 @@ router.delete('/delete/:id', function(req, res) {
   });
 });
 
+router.post('/update',function(req,res){
+  const publisherFirstName = req.body.publisherFirstName;
+  const publisherLastName  = req.body.publisherLastName;
+  const publisherID = req.body.publisherID;
+
+  connection.query('UPDATE publisher SET publisher_first_name = ?, publisher_last_name = ? WHERE publisher_id = ? ',[publisherFirstName,publisherLastName,publisherID], function(error,result){
+    if(error) {
+      console.error(error);
+      res.send({success: false, message: 'Database error'})
+    }else{
+        res.send({success:true})
+      }
+    })
+  });
+
 
 
 
