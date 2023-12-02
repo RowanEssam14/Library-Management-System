@@ -1,0 +1,94 @@
+:root {
+    scroll-behavior: smooth;
+  }
+
+  html,body {
+    margin: 0;
+    padding: 0;
+    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    /* font-weight: 300;
+    font-size: 20px; */
+    text-rendering: optimizeLegibility;
+    background-color: #6c5c4d;
+}
+/*--------------------------------------------------------------
+# Navbar
+--------------------------------------------------------------*/
+.navbar{
+    background-color: #e1dad2;
+}
+div.container-fluid{
+    padding:0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+div#navbarSupportedContent{
+    padding-left: 10px;
+    padding-right: 50px;
+}
+.navbar ul li {
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.navbar img{
+    width: 34px;
+    height:43px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.navbar-brand {
+    font-family: 'Montserrat';
+    font-size: larger;
+    font-weight: 700;
+    padding-left:35px;
+}
+.navbar button.navbar-toggler{
+  margin-right: 25px;
+  padding:4px 4px;
+}
+.dropdown-menu{
+    min-width: 8.5rem;
+}
+/*--------------------------------------------------------------
+# Table
+--------------------------------------------------------------*/
+.container#manage-genres{
+    margin-top: 5rem;
+}
+.btn {
+    background-color: #727c57;
+    border-color: #727c57;
+    color: white;
+}
+.btn:hover{
+    background-color: #2d3c1f;
+    border-color: #2d3c1f;
+}
+
+table thead th{
+    border: none !important;
+}
+table thead th, table tbody td {
+    color: #000 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
+}
+/*--------------------------------------------------------------
+# Actions (Change password, Edit, Delete)
+--------------------------------------------------------------*/
+.edit-btn,.delete-btn{
+    border: none;
+    background-color: transparent;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+.delete-btn:hover,.edit-btn:hover{
+    color: antiquewhite;
+}
