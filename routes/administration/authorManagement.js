@@ -48,7 +48,30 @@ router.delete('/delete/:id', function(req, res) {
   });
 });
 
+router.post('/update',function(req,res){
+  const authorFirstName = req.body.authorFirstName;
+  const authorMiddleName  = req.body.authorMiddleName;
+  const authorLastName  = req.body.authorLastName;
+  const authorSpecialization  = req.body.authorSpecialization;
+  const authorID = req.body.authorID;
+
+  connection.query('UPDATE author SET author_first_name = ?, author_middle_name = ?, author_last_name = ?, specialization = ? WHERE author_id = ? ',[authorFirstName,authorMiddleName,authorLastName,authorSpecialization,authorID], function(error,result){
+    if(error) {
+      console.error(error);
+      res.send({success: false, message: 'Database error'})
+    }else{
+        res.send({success:true})
+      }
+    })
+  });
+
 
 
 
   module.exports = router;
+/*
+const authorFirstName = $(this).data('libraryid');
+          const authorMiddleName = $(this).data('roleid');
+          const authorLastName = $(this).data('roleid');
+          const authorSpecialization = $(this).data('roleid');
+*/
