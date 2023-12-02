@@ -33,15 +33,18 @@ connection.connect((err) => {
   }
 });
 
-router.delete('/delete/:id', function(req, res) {
-  const authorID = req.params.id;
-  console.log('delete author endpoint hit',authorID);
+router.post('/addAuthor', function(req, res) {
+  console.log('add author hit');
+  const authorFirstName = req.body.authorFirstName;
+  const authorMiddleName  = req.body.authorMiddleName;
+  const authorLastName  = req.body.authorLastName;
+  const authorSpecialization  = req.body.authorSpecialization;
+  const authorID = req.body.authorID;
 
-
-  connection.query('UPDATE author SET is_deleted = 1 WHERE author_id = ?', [authorID], (error, results, fields) => {
+  connection.query('INSERT INTO author (author_first_name, author_middle_name, author_last_name, specialization) VALUES (?, ?, ?, ?)', [authorFirstName, authorMiddleName, authorLastName,authorSpecialization], function(error, results, fields) {
     if (error) {
       console.error(error);
-      res.status(500).send({ success: false, message: 'Database error' });
+      res.send({ success: false, message: 'Database error' });
     } else {
       res.send({ success: true });
     }
@@ -66,12 +69,21 @@ router.post('/update',function(req,res){
   });
 
 
+router.delete('/delete/:id', function(req, res) {
+  const authorID = req.params.id;
+  console.log('delete author endpoint hit',authorID);
 
+
+  connection.query('UPDATE author SET is_deleted = 1 WHERE author_id = ?', [authorID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
 
   module.exports = router;
 /*
-const authorFirstName = $(this).data('libraryid');
-          const authorMiddleName = $(this).data('roleid');
-          const authorLastName = $(this).data('roleid');
-          const authorSpecialization = $(this).data('roleid');
 */
