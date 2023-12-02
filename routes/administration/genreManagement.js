@@ -32,15 +32,14 @@ router.get('/', function(req, res) {
   }
 });
 
-router.delete('/delete/:id', function(req, res) {
-  const genreID = req.params.id;
-  console.log('delete genre endpoint hit',genreID);
+router.post('/addGenre', function(req, res) {
+  console.log('add genre hit');
+  const genreName = req.body.genreName;
 
-
-  connection.query('UPDATE genre SET is_deleted = 1 WHERE genre_id = ?', [genreID], (error, results, fields) => {
+  connection.query('INSERT INTO genre (genre_name) VALUES (?)', [genreName], function(error, results, fields) {
     if (error) {
       console.error(error);
-      res.status(500).send({ success: false, message: 'Database error' });
+      res.send({ success: false, message: 'Database error' });
     } else {
       res.send({ success: true });
     }
@@ -60,5 +59,22 @@ router.post('/update',function(req,res){
       }
     })
   });
+
+router.delete('/delete/:id', function(req, res) {
+  const genreID = req.params.id;
+  console.log('delete genre endpoint hit',genreID);
+
+
+  connection.query('UPDATE genre SET is_deleted = 1 WHERE genre_id = ?', [genreID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
+
 
   module.exports = router;

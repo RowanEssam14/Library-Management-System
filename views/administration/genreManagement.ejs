@@ -85,6 +85,31 @@
       </div>
   </div>
 
+  <div class="modal fade" id="addGenreModal" tabindex="-1" role="dialog" aria-labelledby="addGenreModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addGenreModalLabel">Add New Genre</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addGenreForm">
+            <div class="form-group">
+              <label for="add-genreName">Genre Name:</label>
+              <input type="text" class="form-control" id="add-genreName">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="addGenreButton">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -96,10 +121,6 @@
         </div>
         <div class="modal-body">
           <form id="editForm">
-            <div class="form-group">
-              <label for="edit-genreID">Genre ID</label>
-              <input type="text" class="form-control" id="edit-genreID" readonly data-toggle="tooltip" title="This field cannot be edited">
-            </div>
             <div class="form-group">
               <label for="edit-genreName" class="col-form-label">Genre Name:</label>
               <input type="text" class="form-control" id="edit-genreName">
@@ -142,6 +163,23 @@
 
         $('[data-toggle="tooltip"]').tooltip();
 
+        $('#addGenreButton').click(function() {
+
+          // Get the form data
+          var genreName = $('#add-genreName').val();
+
+          // Send a POST request to the server
+          $.post('/genreManagement/addGenre', { genreName: genreName}, function(data) {
+            if (data.success) {
+              // Close the modal and refresh the page
+              $('#addGenreModal').modal('hide');
+              location.reload();
+            } else {
+              alert('Error: ' + data.message);
+            }
+          });
+          });
+
         $('.edit-btn').on('click', function() {
           console.log('Edit button hit');
 
@@ -181,7 +219,6 @@
 
           $('#editModal').modal('hide');
         });
-
 
         $('.delete-btn').on('click', function() {
           const genreID = $(this).data('genreid');
