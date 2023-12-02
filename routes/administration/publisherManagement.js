@@ -15,13 +15,13 @@ connection.connect((err) => {
     console.log('Connected to the MySQL database.');
  });
 
+
  router.get('/', function(req, res) {
   console.log('publisherManagement get request hit');
 
-  // Check if user is logged in and has the role of 'admin'
   if (req.session.loggedin && req.session.role === 'admin') {
     // Fetch publishers from publisher table
-    connection.query('SELECT * FROM publisher', function(error, publishers, fields) {
+    connection.query('SELECT * FROM publisher WHERE is_deleted = 0', function(error, publishers, fields) {
       if (error) throw error;
 
       // Pass publishers to the view
@@ -32,6 +32,22 @@ connection.connect((err) => {
     res.redirect('http://localhost:3300/adminLogin');
   }
 });
+
+router.delete('/delete/:id', function(req, res) {
+  const publisherID = req.params.id;
+  console.log('delete publsiher endpoint hit',publisherID);
+
+
+  connection.query('UPDATE publisher SET is_deleted = 1 WHERE publisher_id = ?', [publisherID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
 
 
 

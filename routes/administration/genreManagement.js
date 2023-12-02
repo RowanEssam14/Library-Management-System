@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 
   if (req.session.loggedin && req.session.role === 'admin') {
     // Fetch genres from genre table
-    connection.query('SELECT * FROM genre', function(error, genres, fields) {
+    connection.query('SELECT * FROM genre WHERE is_deleted = 0', function(error, genres, fields) {
       if (error) throw error;
 
       // Pass genres to the view
@@ -32,6 +32,19 @@ router.get('/', function(req, res) {
   }
 });
 
+router.delete('/delete/:id', function(req, res) {
+  const genreID = req.params.id;
+  console.log('delete genre endpoint hit',genreID);
 
+
+  connection.query('UPDATE genre SET is_deleted = 1 WHERE genre_id = ?', [genreID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
 
   module.exports = router;
