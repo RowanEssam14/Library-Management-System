@@ -91,6 +91,21 @@ router.post('/update',function(req,res){
   });
 });
 
+router.delete('/delete/:id', function(req, res) {
+  const borrowID = req.params.id;
+  console.log('delete borrow endpoint hit',borrowID);
+
+
+  connection.query('DELETE FROM borrow WHERE borrow_id = ? ', [borrowID], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: 'Database error' });
+    } else {
+      res.send({ success: true });
+    }
+  });
+});
+
 
 
 module.exports = router;
