@@ -37,6 +37,63 @@ connection.connect((err) => {
   }
 });
 
+router.post('/addBorrow', function(req, res) {
+  console.log('add borrow hit');
+
+  const borrowerLibraryID = req.body.borrowerLibraryID;
+  const librarian_library_id = (req.session.username);
+  const borrowDate = req.body.borrowDate;
+  const dueDate = req.body.dueDate;
+  const status = req.body.status;
+  const details = req.body.details;
+  const bookIDs = req.body.bookIDs; // assuming you're sending bookIDs in the request body
+
+  connection.query('SELECT user_id FROM user WHERE library_id = ?', [librarian_library_id], function(error, librarianResults) {
+    if (error) {
+      console.error(error);
+      res.send({success: false, message: 'Database error'});
+    } else {
+      // Check if a librarian was found
+      if (librarianResults.length > 0) {
+        const librarian_id = librarianResults[0].user_id;
+
+        connection.query('SELECT user_id FROM user WHERE library_id = ?', [borrowerLibraryID], function(error, borrowerResults) {
+          if (error) {
+            console.error(error);
+            res.send({success: false, message: 'Database error'});
+          } else {
+            // Check if a borrower was found
+            if (borrowerResults.length > 0) {
+              const borrowerID = borrowerResults[0].user_id;
+
+              connection.query('INSERT INTO borrow (borrower_id, librarian_id, borrow_date, due_date, status, details) VALUES (?, ?, ?, ?, ?, ?)', [borrowerID, librarian_id, borrowDate, dueDate, status, details], function(error, results, fields) {
+                if (error) {
+                  console.error(error);
+                  res.send({ success: false, message: 'Database error' });
+                } else {
+                  const borrowID = results.insertId; // get the auto-generated borrowID
+                  bookIDs.forEach(function(bookID) {
+                    connection.query('INSERT INTO book_borrow (borrow_id, book_id) VALUES (?, ?)', [borrowID, bookID], function(error, result) {
+                      if (error) {
+                        console.error(error);
+                        res.send({success: false, message: 'Database error'});
+                      }
+                    });
+                  });
+                  res.send({ success: true });
+                }
+              });
+            }
+          }
+        });
+      }
+    }
+  });
+});
+
+
+
+
 router.post('/update',function(req,res){
 
   console.log(req.session.username);
