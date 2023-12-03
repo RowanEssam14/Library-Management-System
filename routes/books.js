@@ -88,7 +88,7 @@ router.post('/reserve', function(req, res) {
       return;
     }
     // The where condition in the query checks that the user doesn't have an active borrowing if the borrower_id exists in the table and status equals ('online_reservation','borrowed','overdue')
-    connection.query('SELECT * FROM `borrow` WHERE `borrower_id` = ? AND `status` IN (?, ?, ?)', [req.session.user_id, 'online_reservation', 'borrowed', 'overdue'], function(error, results, fields) {
+    connection.query('SELECT * FROM `borrow` WHERE `borrower_id` = ? AND `status` IN (?, ?, ?)', [req.session.user_id, 'online_reservation', 'borrowed','renewed', 'overdue'], function(error, results, fields) {
       if (error) {
         throw error;
       }
