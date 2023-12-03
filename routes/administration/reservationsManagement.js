@@ -40,6 +40,7 @@ router.post('/update',function(req,res){
   const status = req.body.status;
   const borrowID = req.body.borrowID;
   const librarian_library_id = (req.session.username);
+  const bookIDs = req.body.bookIDs.split(',').map(Number); // assuming bookIDs are sent as a comma-separated string
 
   connection.query('SELECT user_id FROM user WHERE library_id = ?', [librarian_library_id], function(error, results) {
     if (error) {
@@ -54,6 +55,16 @@ router.post('/update',function(req,res){
             console.error(error);
             res.send({success: false, message: 'Database error'});
           } else {
+             if (status === 'cancelled') { //if reservation is cancelled then increment the book number of copies by 1
+              bookIDs.forEach(bookID => {
+                connection.query('UPDATE book SET no_of_copies = no_of_copies + 1 WHERE book_id = ?', [bookID], function(error, result) {
+                  if (error) {
+                    console.error(error);
+                    res.send({success: false, message: 'Database error'});
+                  }
+                });
+              });
+            }
             res.send({success: true});
           }
         });
@@ -63,6 +74,7 @@ router.post('/update',function(req,res){
     }
   });
 });
+
 
 router.delete('/delete/:id', function(req, res) {
   const borrowID = req.params.id;

@@ -42,50 +42,58 @@ router.get('/', function(req, res) {
   });
 
 
-router.post('/borrow', function(req, res) {
+  router.post('/borrow', function(req, res) {
 
-  const borrowDate = req.body.date;
-  const borrowerId = req.session.user_id;
+    const borrowDate = req.body.date;
+    const borrowerId = req.session.user_id;
 
-  // Start a transaction
-  connection.beginTransaction(function(err) {
-      if (err) { throw err; }
+    // Start a transaction
+    connection.beginTransaction(function(err) {
+        if (err) { throw err; }
 
-      // Insert the borrow record
-      connection.query('INSERT INTO `borrow` (`borrower_id`, `borrow_date`,`status`) VALUES (?, ?, ?)', [borrowerId, borrowDate, 'online_reservation'], function(error, results, fields) {
-          if (error) {
-              return connection.rollback(function() {
-                  throw error;
-              });
-          }
-          // Get the last inserted ID
-          const lastIdInBorrow = results.insertId;
+        // Insert the borrow record
+        connection.query('INSERT INTO `borrow` (`borrower_id`, `borrow_date`,`status`) VALUES (?, ?, ?)', [borrowerId, borrowDate, 'online_reservation'], function(error, results, fields) {
+            if (error) {
+                return connection.rollback(function() {
+                    throw error;
+                });
+            }
+            // Get the last inserted ID
+            const lastIdInBorrow = results.insertId;
 
-          // Insert the book_borrow records using foreach loop
-          req.session.cart.forEach(function(bookId) {
-              connection.query('INSERT INTO `book_borrow` (`borrow_id`, `book_id`) VALUES (?, ?)', [lastIdInBorrow, bookId], function(error, results, fields) {
+            // Insert the book_borrow records using foreach loop
+            req.session.cart.forEach(function(bookId) {
+                connection.query('INSERT INTO `book_borrow` (`borrow_id`, `book_id`) VALUES (?, ?)', [lastIdInBorrow, bookId], function(error, results, fields) {
 
-                  if (error) {
-                      return connection.rollback(function() {
-                          throw error;
-                      });
-                  }
-              });
-          });
+                    if (error) {
+                        return connection.rollback(function() {
+                            throw error;
+                        });
+                    }
 
-          // Commit the transaction
-          connection.commit(function(err) {
-              if (err) {
-                  return connection.rollback(function() {
-                      throw err;
-                  });
-              }
-              req.session.cart = []
-              res.send({success:true});
-          });
-      });
+                    // Decrement the no_of_copies in the books table
+                    connection.query('UPDATE book SET no_of_copies = no_of_copies - 1 WHERE book_id = ?', [bookId], function(error, result) {
+                      if (error) {
+                        console.error(error);
+                        res.send({success: false, message: 'Database error'});
+                      }
+                    });
+                });
+            });
+
+            // Commit the transaction
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        throw err;
+                    });
+                }
+                req.session.cart = []
+                res.send({success:true});
+            });
+        });
+    });
   });
-});
 
 router.post('/delete', function(req, res) {
 

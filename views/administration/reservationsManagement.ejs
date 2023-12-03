@@ -73,7 +73,7 @@
                               <td data-toggle="tooltip" title="<%= reservation.books %>"><%= reservation.books %></td>
                               <td data-toggle="tooltip" title="<%= reservation.details %>"><%= reservation.details %></td>
                               <td>
-                                <button class="btn btn-link edit-btn" data-toggle="tooltip" title="Edit" data-borrowerlibraryid="<%= reservation.library_id %>" data-borrowdate="<%= reservation.borrow_date %>" data-duedate="<%= reservation.due_date %>" data-status="<%= reservation.status %>" data-details="<%= reservation.details %>" data-books="<%= reservation.books %>" data-borrowid="<%= reservation.borrow_id %>">
+                                <button class="btn btn-link edit-btn" data-toggle="tooltip" title="Edit" data-borrowerlibraryid="<%= reservation.library_id %>" data-borrowdate="<%= reservation.borrow_date %>" data-duedate="<%= reservation.due_date %>" data-status="<%= reservation.status %>" data-details="<%= reservation.details %>" data-books="<%= reservation.books %>" data-borrowid="<%= reservation.borrow_id %>"  data-bookids="<%= reservation.book_ids %>">
                                   <i class="fas fa-edit"></i>
                                 </button>
                             </td>
@@ -169,6 +169,7 @@
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
 
+        let bookIDs;
         $('.edit-btn').on('click', function() {
             console.log('Edit button hit');
             const borrowerLibraryID = $(this).data('borrowerlibraryid');
@@ -184,6 +185,8 @@
             $('#edit-status').val(status);
             $('#edit-details').val(details);
             $('#edit-books').val(books);
+            bookIDs = $(this).data('bookids');
+            console.log( "bookIds are " + bookIDs);
 
             $('#editModal').modal('show');
             });
@@ -192,8 +195,8 @@
           console.log('submit edit hit');
           const dueDate = $('#edit-dueDate').val();
           const details = $('#edit-details').val();
-          const borrowID = $('.edit-btn').data('borrowid');
           const status = $('#edit-status').val();
+          const borrowID = $('.edit-btn').data('borrowid');
           // Perform update request
           $.ajax({
             url: '/reservationsManagement/update',
@@ -202,7 +205,8 @@
                 details: details,
                 dueDate: dueDate,
                 status: status,
-                borrowID: borrowID
+                borrowID: borrowID,
+                bookIDs: bookIDs
             },
             success: function(response) {
               if (response.success) {
