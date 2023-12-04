@@ -97,7 +97,6 @@ router.post('/addBorrow', function(req, res) {
   });
 });
 
-
 router.post('/update',function(req,res){
 
   console.log(req.session.username);
@@ -166,7 +165,5 @@ router.delete('/delete/:id', function(req, res) {
     }
   });
 });
-
-
 
 module.exports = router;

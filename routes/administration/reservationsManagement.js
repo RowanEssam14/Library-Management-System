@@ -15,6 +15,7 @@ connection.connect((err) => {
     console.log('Connected to the MySQL database.');
  });
 
+
  router.get('/', function(req, res) {
   console.log('reservationsManagement get request hit');
 
@@ -32,64 +33,37 @@ connection.connect((err) => {
   }
 });
 
-router.post('/update', function(req, res) {
-  console.log(req.session.username);
+router.post('/update',function(req,res){
 
+  console.log(req.session.username);
   const details = req.body.details;
-  const borrowDate = req.body.borrowDate;
   const dueDate = req.body.dueDate;
   const status = req.body.status;
   const borrowID = req.body.borrowID;
-  const librarian_library_id = req.session.username;
-  const bookIDs = req.body.bookIDs;
-
-  console.log(bookIDs);
+  const librarian_library_id = (req.session.username);
 
   connection.query('SELECT user_id FROM user WHERE library_id = ?', [librarian_library_id], function(error, results) {
     if (error) {
       console.error(error);
-      res.send({ success: false, message: 'Database error' });
+      res.send({success: false, message: 'Database error'});
     } else {
       // Check if a user was found
       if (results.length > 0) {
         const librarian_id = results[0].user_id;
-
-        connection.query('UPDATE borrow SET librarian_id = ?, borrow_date = ?, due_date = ?, status = ?, details = ? WHERE borrow_id = ?', [librarian_id, borrowDate, dueDate, status, details, borrowID], function(error, result) {
+        connection.query('UPDATE borrow SET librarian_id = ?, due_date = ?, status = ?, details = ? WHERE borrow_id = ?', [librarian_id, dueDate, status, details, borrowID], function(error, result) {
           if (error) {
             console.error(error);
-            res.send({ success: false, message: 'Database error' });
+            res.send({success: false, message: 'Database error'});
           } else {
-            // Delete all existing records for the given borrow_id in the book_borrow table
-            connection.query('DELETE FROM book_borrow WHERE borrow_id = ?', [borrowID], function(error, result) {
-              if (error) {
-                console.error(error);
-                res.send({ success: false, message: 'Database error' });
-              } else {
-                // After deleting the old records, insert the new ones
-                bookIDs.forEach(function(bookID) {
-                  connection.query('INSERT INTO book_borrow (borrow_id, book_id) VALUES (?, ?)', [borrowID, bookID], async function(error, result) {
-                    if (error) {
-                      console.error(error);
-                      res.send({ success: false, message: 'Database error' });
-                    } else {
-                      // Decrement the no_of_copies for the new book IDs in the book table
-                      await connection.query('UPDATE book SET no_of_copies = no_of_copies - 1 WHERE book_id = ?', [bookID]);
-                    }
-                  });
-                });
-
-                // Send the success response after all the new records have been inserted and no_of_copies decremented
-                res.send({ success: true });
-              }
-            });
+            res.send({success: true});
           }
         });
       } else {
-        res.send({ success: false, message: 'No user found with the provided library_id' });
+        res.send({success: false, message: 'No user found with the provided library_id'});
       }
     }
   });
-});
+  });
 
 
 router.delete('/delete/:id', function(req, res) {
