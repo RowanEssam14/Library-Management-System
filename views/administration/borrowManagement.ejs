@@ -219,7 +219,7 @@
                         aria-expanded="false">
                     Select
                 </button>
-                <ul class="dropdown-menu"
+                <ul class="dropdown-menu "
                     aria-labelledby="multiSelectDropdown">
                     <% books.forEach(function(book) { %>
                         <li>
@@ -341,33 +341,41 @@
           handleCB(); // Update the displayed list after clearing checkboxes
         });
 
-        // Handle the form submission
-        $('#addBorrowButton').click(function() {
-          const borrowerLibraryID = $('#add-borrowerLibraryID').val();
-          const borrowDate = $('#add-borrowDate').val();
-          const dueDate = $('#add-dueDate').val();
-          const details = $('#add-details').val();
-          const status = $('#add-status').val();
-          const bookIDs = mySelectedListItems;
 
-          // Send a POST request to the server
-          $.post('/borrowManagement/addBorrow', {
-            borrowerLibraryID: borrowerLibraryID,
-            borrowDate: borrowDate,
-            dueDate: dueDate,
-            details: details,
-            status: status,
-            bookIDs: bookIDs
-          }, function(data) {
-            if (data.success) {
-              // Close the modal and refresh the page
-              $('#addBorrowModal').modal('hide');
-              location.reload();
-            } else {
-              alert('Error: ' + data.message);
-            }
-          });
-        });
+        $('#addBorrowButton').click(function() {
+  const borrowerLibraryID = $('#add-borrowerLibraryID').val();
+  const borrowDate = $('#add-borrowDate').val();
+  const dueDate = $('#add-dueDate').val();
+  const details = $('#add-details').val();
+  const status = $('#add-status').val();
+  const bookIDs = mySelectedListItems;
+
+  // Send a POST request to the server
+  $.post('/borrowManagement/addBorrow', {
+    borrowerLibraryID: borrowerLibraryID,
+    borrowDate: borrowDate,
+    dueDate: dueDate,
+    details: details,
+    status: status,
+    bookIDs: bookIDs
+  }, function(data) {
+    if (data.success) {
+      // Close the modal and refresh the page
+      $('#addBorrowModal').modal('hide');
+      location.reload();
+    } else {
+      // Display the error message as an alert
+      window.alert('Error: ' + data.message);
+      console.log(data.message);
+    }
+  })
+  .fail(function(jqXHR, textStatus, errorThrown) {
+    // In case of a failed request, display a generic error message as an alert
+    window.alert('Error: Failed to submit the form');
+    console.error(textStatus, errorThrown);
+  });
+});
+
 
         $('.edit-btn').on('click', function() {
             console.log('Edit button hit');

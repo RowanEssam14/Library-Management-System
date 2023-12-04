@@ -83,15 +83,19 @@ router.post('/addBorrow', function(req, res) {
                   res.send({ success: true });
                 }
               });
+            } else {
+              // No borrower was found
+              res.send({success: false, message: 'No borrower found with the provided library ID'});
             }
           }
         });
+      } else {
+        // No librarian was found
+        res.send({success: false, message: 'No librarian found with the provided library ID'});
       }
     }
   });
 });
-
-
 
 
 router.post('/update',function(req,res){

@@ -92,3 +92,9 @@ table thead th, table tbody td {
 .delete-btn:hover,.edit-btn:hover{
     color: antiquewhite;
 }
+/*--------------------------------------------------------------
+# Modals
+--------------------------------------------------------------*/
+#addBorrowModal .dropdown-menu{
+    position: fixed !important;
+}
