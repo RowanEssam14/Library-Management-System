@@ -18,7 +18,7 @@ connection.connect((err) => {
  router.get('/', function(req, res) {
   console.log('borrowManagement get request hit');
 
-  if (req.session.loggedin && req.session.role === 'admin') {
+  if (req.session.loggedin && req.session.role === 'admin' || req.session.role === 'librarian') {
     // Fetch borrow details from the database
     connection.query('SELECT borrow.borrow_id, borrow.borrower_id, user.library_id, borrow.librarian_id, borrow.borrow_date, borrow.due_date, borrow.status, borrow.details, GROUP_CONCAT(book.title SEPARATOR \', \') as books, GROUP_CONCAT(book.book_id SEPARATOR \', \') as book_ids FROM borrow INNER JOIN book_borrow ON borrow.borrow_id = book_borrow.borrow_id INNER JOIN book ON book_borrow.book_id = book.book_id INNER JOIN user ON borrow.borrower_id = user.user_id WHERE borrow.status != \'online_reservation\' GROUP BY borrow.borrow_id', function(error, borrows, fields) {
       if (error) throw error;
@@ -46,7 +46,7 @@ router.post('/addBorrow', function(req, res) {
   const dueDate = req.body.dueDate;
   const status = req.body.status;
   const details = req.body.details;
-  const bookIDs = req.body.bookIDs; // assuming you're sending bookIDs in the request body
+  const bookIDs = req.body.bookIDs;
 
   connection.query('SELECT user_id FROM user WHERE library_id = ?', [librarian_library_id], function(error, librarianResults) {
     if (error) {
@@ -106,8 +106,10 @@ router.post('/update',function(req,res){
   const status = req.body.status;
   const borrowID = req.body.borrowID;
   const librarian_library_id = (req.session.username);
-  const bookIDs = req.body.bookIDs;
-  console.log(bookIDs);
+  const unformattedBookIDs =  Array.prototype.join.call(req.body.bookIDs, ',');
+  console.log("The type of unformatted book ids are:" + typeof(unformattedBookIDs) + "ids are: "+ unformattedBookIDs);
+  const bookIDs = unformattedBookIDs.split(','); // Split the string into an array
+  console.log(" from the edit endpoint"+bookIDs);
 
   connection.query('SELECT user_id FROM user WHERE library_id = ?', [librarian_library_id], function(error, results) {
     if (error) {
@@ -122,6 +124,29 @@ router.post('/update',function(req,res){
             console.error(error);
             res.send({success: false, message: 'Database error'});
           } else {
+            // If the status is "cancelled" or "returned", increment the number of copies for each book
+            if (status === 'cancelled' || status === 'returned') {
+              bookIDs.forEach(function(bookID) {
+                connection.query('UPDATE book SET no_of_copies = no_of_copies + 1 WHERE book_id = ?', [bookID], function(error, result) {
+                  if (error) {
+                    console.error(error);
+                    res.send({success: false, message: 'Database error'});
+                  }
+                });
+              });
+            }
+            // If the status is "damaged", "lost", decrement the number of copies for each book
+            else if (status === 'damaged' || status === 'lost') {
+              bookIDs.forEach(function(bookID) {
+                connection.query('UPDATE book SET no_of_copies = no_of_copies - 1 WHERE book_id = ?', [bookID], function(error, result) {
+                  if (error) {
+                    console.error(error);
+                    res.send({success: false, message: 'Database error'});
+                  }
+                });
+              });
+            }
+
             // Delete all existing records for the given borrow_id in the book_borrow table
             connection.query('DELETE FROM book_borrow WHERE borrow_id = ?', [borrowID], function(error, result) {
                 if (error) {
@@ -150,6 +175,8 @@ router.post('/update',function(req,res){
     }
   });
 });
+
+
 
 router.delete('/delete/:id', function(req, res) {
   const borrowID = req.params.id;

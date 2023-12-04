@@ -18,23 +18,37 @@ connection.connect((err) => {
 
 
  router.get('/', function(req, res) {
-  if (req.session.loggedin && req.session.role === 'admin') {
-    connection.query('SELECT * FROM role', (error, roles, fields) => {
-      if (error) throw error;
-      connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE is_deleted = 0 ORDER BY role.role_name ASC', (error, users, fields) => {
-        console.log(roles)
+  if (req.session.loggedin) {
+    if (req.session.role === 'admin') {
+      connection.query('SELECT * FROM role', (error, roles, fields) => {
         if (error) throw error;
-        if (req.xhr) { // If the request is an AJAX request
-          res.json({ user: users, roles: roles }); // Send JSON data
-        } else {
-          res.render('administration/adminInterface', { user: users, roles: roles }); // Render the view
-        }
+        connection.query('SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE is_deleted = 0 ORDER BY role.role_name ASC', (error, users, fields) => {
+          if (error) throw error;
+          if (req.xhr) { // If the request is an AJAX request
+            res.json({ user: users, roles: roles }); // Send JSON data
+          } else {
+            res.render('administration/adminInterface', { user: users, roles: roles }); // Render the view
+          }
+        });
       });
-    });
+    } else if (req.session.role === 'librarian') {
+      connection.query('SELECT * FROM role', (error, roles, fields) => {
+        if (error) throw error;
+        connection.query("SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE user.is_deleted = 0 AND role.role_name = 'user'", (error, users, fields) => {
+          if (error) throw error;
+          if (req.xhr) { // If the request is an AJAX request
+            res.json({ user: users, roles: roles }); // Send JSON data
+          } else {
+            res.render('administration/adminInterface', { user: users, roles: roles }); // Render the view
+          }
+        });
+      });
+    }
   } else {
     res.redirect('http://localhost:3300/adminLogin');
   }
 });
+
 
 
 router.post('/addUser', function(req, res) {

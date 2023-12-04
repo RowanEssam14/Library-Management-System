@@ -98,7 +98,7 @@
           </div>
       </div>
   </div>
-<!--
+
   <div class="modal fade" id="addBorrowModal" tabindex="-1" role="dialog" aria-labelledby="addBorrowModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -137,13 +137,13 @@
               <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle"
                         type="button"
-                        id="multiSelectDropdown"
+                        id="add_multiSelectDropdown"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                     Select
                 </button>
-                <ul class="dropdown-menu"
-                    aria-labelledby="multiSelectDropdown">
+                <ul class="dropdown-menu add-menu"
+                    aria-labelledby="add_multiSelectDropdown">
                     <% books.forEach(function(book) { %>
                         <li>
                             <label>
@@ -165,7 +165,7 @@
       </div>
     </div>
   </div>
--->
+
   <div class="modal fade" id="editModal" tabindex="-1" book="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" book="document">
       <div class="modal-content">
@@ -214,13 +214,13 @@
               <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle"
                         type="button"
-                        id="multiSelectDropdown"
+                        id="edit_multiSelectDropdown"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                     Select
                 </button>
-                <ul class="dropdown-menu "
-                    aria-labelledby="multiSelectDropdown">
+                <ul class="dropdown-menu edit-menu"
+                    aria-labelledby="edit_multiSelectDropdown">
                     <% books.forEach(function(book) { %>
                         <li>
                             <label>
@@ -269,30 +269,37 @@
   <script src="https://kit.fontawesome.com/b042d509f8.js" crossorigin="anonymous"></script>
 
   <script>
-    const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
-    const dpBtn = document.getElementById('multiSelectDropdown');
-    let mySelectedListItems = [];
+     const add_chBoxes = document.querySelectorAll('.add-menu input[type="checkbox"]');
+      const edit_chBoxes = document.querySelectorAll('.edit-menu input[type="checkbox"]');
+      const add_dpBtn = document.getElementById('add_multiSelectDropdown');
+      const edit_dpBtn = document.getElementById('edit_multiSelectDropdown');
+      let mySelectedLists = {"add":[],"edit":[]};
 
     function handleCB() {
-        mySelectedListItems = [];
-        let mySelectedListItemsText = '';
-
-        chBoxes.forEach((checkbox) => {
+        mySelectedLists.add = [];
+        mySelectedLists.edit = [];
+        let mySelectedListItemsTexts = {"add":"","edit":""};
+        edit_chBoxes.forEach((checkbox) => {
             if (checkbox.checked) {
-                mySelectedListItems.push(checkbox.value);
-                mySelectedListItemsText += checkbox.value + ', ';
+                mySelectedLists.edit.push(checkbox.value);
+                mySelectedListItemsTexts.edit += checkbox.value + ', ';
             }
         });
-
-        dpBtn.innerText = mySelectedListItems.length > 0  ? mySelectedListItemsText.slice(0, -2) : 'Select';
+        add_chBoxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                mySelectedLists.add.push(checkbox.value);
+                mySelectedListItemsTexts.add += checkbox.value + ', ';
+            }
+        });
+        add_dpBtn.innerText = mySelectedLists.add.length > 0  ? mySelectedListItemsTexts.add.slice(0, -2) : 'Select';
+        edit_dpBtn.innerText = mySelectedLists.edit.length > 0  ? mySelectedListItemsTexts.edit.slice(0, -2) : 'Select';
     }
-
     function setCheckboxes(bookIDsString) {
 
       if (typeof bookIDsString === 'string') {
         const bookIDsArray = bookIDsString.split(',').map(id => id.trim());
 
-        chBoxes.forEach((checkbox) => {
+        add_chBoxes.forEach((checkbox) => {
           const checkboxValue = checkbox.value.toString();
 
           if (bookIDsArray.includes(checkboxValue)) {
@@ -301,11 +308,20 @@
             checkbox.checked = false;
           }
         });
+        edit_chBoxes.forEach((checkbox) => {
+
+            const checkboxValue = checkbox.value.toString();
+            if (bookIDsArray.includes(checkboxValue)) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
 
         handleCB(); // Update the displayed list after setting checkboxes
       } else if (Array.isArray(bookIDsString)) {
         // If bookIDsString is an array of strings
-        chBoxes.forEach((checkbox) => {
+        add_chBoxes.forEach((checkbox) => {
           const checkboxValue = checkbox.value.toString();
 
           if (bookIDsString.includes(checkboxValue)) {
@@ -314,6 +330,15 @@
             checkbox.checked = false;
           }
         });
+        edit_chBoxes.forEach((checkbox) => {
+            const checkboxValue = checkbox.value.toString();
+
+            if (bookIDsString.includes(checkboxValue)) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
 
         handleCB(); // Update the displayed list after setting checkboxes
       } else {
@@ -321,170 +346,166 @@
         // Handle other invalid formats, such as numbers, objects, etc.
       }
     }
-
-    chBoxes.forEach((checkbox) => {
+    add_chBoxes.forEach((checkbox) => {
         checkbox.addEventListener('change', handleCB);
     });
-
-
-    $(document).ready(function(){
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        let bookIDs;
-
-        // Clear the selected books when the Add Borrow modal is opened
-        $('#addBorrowModal').on('show.bs.modal', function () {
-          chBoxes.forEach((checkbox) => {
-            checkbox.checked = false;
-          });
-          handleCB(); // Update the displayed list after clearing checkboxes
-        });
-
-        $('#addBorrowButton').click(function() {
-          const borrowerLibraryID = $('#add-borrowerLibraryID').val();
-          const borrowDate = $('#add-borrowDate').val();
-          const dueDate = $('#add-dueDate').val();
-          const details = $('#add-details').val();
-          const status = $('#add-status').val();
-          const bookIDs = mySelectedListItems;
-
-          // Send a POST request to the server
-          $.post('/borrowManagement/addBorrow', {
-            borrowerLibraryID: borrowerLibraryID,
-            borrowDate: borrowDate,
-            dueDate: dueDate,
-            details: details,
-            status: status,
-            bookIDs: bookIDs
-          }, function(data) {
-            if (data.success) {
-              // Close the modal and refresh the page
-              $('#addBorrowModal').modal('hide');
-              location.reload();
-            } else {
-              // Display the error message as an alert
-              window.alert('Error: ' + data.message);
-              console.log(data.message);
-            }
-          })
-          .fail(function(jqXHR, textStatus, errorThrown) {
-            // In case of a failed request, display a generic error message as an alert
-            window.alert('Error: Failed to submit the form');
-            console.error(textStatus, errorThrown);
-          });
-        });
-
-        $('.edit-btn').on('click', function() {
-            console.log('Edit button hit');
-
-            const borrowID = $(this).data('borrowid');
-            console.log("borrow id is:" + borrowID);
-            const borrowerLibraryID = $(this).data('borrowerlibraryid');
-            const borrowDate = new Date($(this).data('borrowdate'));
-            const formattedBorrowDate = borrowDate.toISOString().split('T')[0];
-            const status =$(this).data('status');
-            const details = $(this).data('details');
-            //console.log(typeof(formattedDueDate));
-            let formattedDueDate = $(this).data('duedate');
-
-            if (formattedDueDate !== '' && formattedDueDate !== 'N/A') {
-                formattedDueDate = new Date(formattedDueDate);
-                formattedDueDate = formattedDueDate.toISOString().split('T')[0];
-            } else {
-                formattedDueDate = 'N/A';
-            }
-
-            $('#edit-borrowID').val(borrowID);
-            $('#edit-borrowerLibraryID').val(borrowerLibraryID);
-            $('#edit-borrowDate').val(formattedBorrowDate);
-            $('#edit-dueDate').val(formattedDueDate);
-            $('#edit-status').val(status);
-            $('#edit-details').val(details);
-
-            let bookIDsData = $(this).data('bookids');
-
-            // Ensure bookIDsData is always an array of strings
-            if (typeof bookIDsData === 'string') {
-                // If it's a string, split it into an array of IDs
-                bookIDs = bookIDsData.split(',').map(id => id.trim());
-            } else if (typeof bookIDsData === 'number') {
-                // If it's a number, create an array with that single number
-                bookIDs = [bookIDsData.toString()];
-            } else if (Array.isArray(bookIDsData)) {
-                // If it's already an array, convert all elements to strings
-                bookIDs = bookIDsData.map(String);
-            }
-
-            // Convert the array of IDs to a string for logging (optional)
-            const bookIDsString = bookIDs.join(', ');
-            console.log("bookIds are " + bookIDsString + " of type " + typeof bookIDsString);
-
-            setCheckboxes(bookIDs);
-
-            $('#editModal').modal('show');
-            });
-
-        $('#submitEdit').on('click', function() {
-
-          const borrowID =  $('#edit-borrowID').val();
-          console.log("on submit borrowID is " + borrowID);
-          const borrowerLibraryID = $('#edit-borrowerLibraryID').val();
-          const borrowDate = $('#edit-borrowDate').val();
-          const dueDate = $('#edit-dueDate').val();
-          const details = $('#edit-details').val();
-          const status = $('#edit-status').val();
-          const bookIDs = mySelectedListItems;
-
-          // Perform update request
-          $.ajax({
-            url: '/borrowManagement/update',
-            type: 'POST',
-            data: {
-                borrowID: borrowID,
-                borrowerLibraryID: borrowerLibraryID,
-                borrowDate: borrowDate,
-                dueDate: dueDate,
-                details: details,
-                status: status,
-                bookIDs,bookIDs
-            },
-            success: function(response) {
-              if (response.success) {
-                location.reload();
-              }
-            },
-            error: function(error) {
-              console.error('Error:', error);
-            }
-          });
-
-          $('#editModal').modal('hide');
-        });
-
-        $('.delete-btn').on('click', function() {
-          const borrowID = $(this).data('borrowid');
-          $('#deleteModal').modal('show');
-
-          $('#confirmDelete').on('click', function() {
-            // Perform delete request
-            $.ajax({
-              url: 'borrowManagement/delete/' + borrowID,
-              type: 'DELETE',
-              success: function(response) {
-                if (response.success) {
-                  location.reload();
-                }
-              },
-              error: function(error) {
-                console.error('Error:', error);
-              }
-            });
-            $('#deleteModal').modal('hide');
-          });
-        });
-
+    edit_chBoxes.forEach((checkbox) => {
+          checkbox.addEventListener('change', handleCB);
       });
+
+      $(document).ready(function(){
+
+$('[data-toggle="tooltip"]').tooltip();
+
+let bookIDs;
+
+// Clear the selected books when the Add Borrow modal is opened
+$('#addBorrowModal').on('show.bs.modal', function () {
+  add_chBoxes.forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+  handleCB(); // Update the displayed list after clearing checkboxes
+});
+
+// Handle the form submission
+$('#addBorrowButton').click(function() {
+  const borrowerLibraryID = $('#add-borrowerLibraryID').val();
+  const borrowDate = $('#add-borrowDate').val();
+  const dueDate = $('#add-dueDate').val();
+  const details = $('#add-details').val();
+  const status = $('#add-status').val();
+  const bookIDs = mySelectedLists.add;
+
+  // Send a POST request to the server
+  $.post('/borrowManagement/addBorrow', {
+    borrowerLibraryID: borrowerLibraryID,
+    borrowDate: borrowDate,
+    dueDate: dueDate,
+    details: details,
+    status: status,
+    bookIDs: bookIDs
+  }, function(data) {
+    if (data.success) {
+      // Close the modal and refresh the page
+      $('#addBorrowModal').modal('hide');
+      location.reload();
+    } else {
+      alert('Error: ' + data.message);
+    }
+  });
+});
+
+$('.edit-btn').on('click', function() {
+    console.log('Edit button hit');
+
+    const borrowID = $(this).data('borrowid');
+    console.log("borrow id is:" + borrowID);
+    const borrowerLibraryID = $(this).data('borrowerlibraryid');
+    const borrowDate = new Date($(this).data('borrowdate'));
+    const formattedBorrowDate = borrowDate.toISOString().split('T')[0];
+    const status =$(this).data('status');
+    const details = $(this).data('details');
+    //console.log(typeof(formattedDueDate));
+    let formattedDueDate = $(this).data('duedate');
+
+    if (formattedDueDate !== '' && formattedDueDate !== 'N/A') {
+        formattedDueDate = new Date(formattedDueDate);
+        formattedDueDate = formattedDueDate.toISOString().split('T')[0];
+    } else {
+        formattedDueDate = 'N/A';
+    }
+
+    $('#edit-borrowID').val(borrowID);
+    $('#edit-borrowerLibraryID').val(borrowerLibraryID);
+    $('#edit-borrowDate').val(formattedBorrowDate);
+    $('#edit-dueDate').val(formattedDueDate);
+    $('#edit-status').val(status);
+    $('#edit-details').val(details);
+
+    let bookIDsData = $(this).data('bookids');
+
+    // Ensure bookIDsData is always an array of strings
+    if (typeof bookIDsData === 'string') {
+        // If it's a string, split it into an array of IDs
+        bookIDs = bookIDsData.split(',').map(id => id.trim());
+    } else if (typeof bookIDsData === 'number') {
+        // If it's a number, create an array with that single number
+        bookIDs = [bookIDsData.toString()];
+    } else if (Array.isArray(bookIDsData)) {
+        // If it's already an array, convert all elements to strings
+        bookIDs = bookIDsData.map(String);
+    }
+
+    // Convert the array of IDs to a string for logging (optional)
+    const bookIDsString = bookIDs.join(', ');
+    console.log("bookIds are " + bookIDsString + " of type " + typeof bookIDsString);
+
+    setCheckboxes(bookIDs);
+
+    $('#editModal').modal('show');
+    });
+
+$('#submitEdit').on('click', function() {
+
+  const borrowID =  $('#edit-borrowID').val();
+  console.log("on submit borrowID is " + borrowID);
+  const borrowerLibraryID = $('#edit-borrowerLibraryID').val();
+  const borrowDate = $('#edit-borrowDate').val();
+  const dueDate = $('#edit-dueDate').val();
+  const details = $('#edit-details').val();
+  const status = $('#edit-status').val();
+  const bookIDs = mySelectedLists.edit;
+
+  // Perform update request
+  $.ajax({
+    url: '/borrowManagement/update',
+    type: 'POST',
+    data: {
+        borrowID: borrowID,
+        borrowerLibraryID: borrowerLibraryID,
+        borrowDate: borrowDate,
+        dueDate: dueDate,
+        details: details,
+        status: status,
+        bookIDs
+    },
+    success: function(response) {
+      if (response.success) {
+        location.reload();
+      }
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
+
+  $('#editModal').modal('hide');
+});
+
+$('.delete-btn').on('click', function() {
+  const borrowID = $(this).data('borrowid');
+  $('#deleteModal').modal('show');
+
+  $('#confirmDelete').on('click', function() {
+    // Perform delete request
+    $.ajax({
+      url: 'borrowManagement/delete/' + borrowID,
+      type: 'DELETE',
+      success: function(response) {
+        if (response.success) {
+          location.reload();
+        }
+      },
+      error: function(error) {
+        console.error('Error:', error);
+      }
+    });
+    $('#deleteModal').modal('hide');
+  });
+});
+
+});
+
   </script>
 
 </body>

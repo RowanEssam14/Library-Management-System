@@ -19,7 +19,7 @@ connection.connect((err) => {
  router.get('/', function(req, res) {
   console.log('authorManagement get request hit');
 
-  if (req.session.loggedin && req.session.role === 'admin') {
+  if (req.session.loggedin && req.session.role === 'admin' || req.session.role === 'librarian') {
     // Fetch authors from author table
     connection.query('SELECT * FROM author WHERE is_deleted = 0', function(error, authors, fields) {
       if (error) throw error;

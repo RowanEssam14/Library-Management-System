@@ -32,7 +32,7 @@ const authorManagementRouter = require('./routes/administration/authorManagement
 const genreManagementRouter = require('./routes/administration/genreManagement');
 const reservationsManagementRouter = require('./routes/administration/reservationsManagement');
 const borrowManagementRouter = require('./routes/administration/borrowManagement');
-//const loginLibrarianRouter = require('./routes/loginLibrarian');
+const librarianLoginRouter = require('./routes/administration/librarianLogin');
 
 // Use the books route
 app.use('/books', booksRouter);
@@ -48,8 +48,7 @@ app.use('/authorManagement',authorManagementRouter);
 app.use('/genreManagement',genreManagementRouter);
 app.use('/reservationsManagement',reservationsManagementRouter);
 app.use('/borrowManagement',borrowManagementRouter);
-
-//app.use('/loginLibrarian', loginLibrarianRouter);
+app.use('/librarianLogin', librarianLoginRouter);
 
 // Starting the server
 app.listen(port, function() {

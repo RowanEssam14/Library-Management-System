@@ -18,7 +18,7 @@ connection.connect((err) => {
 router.get('/', function(req, res) {
   console.log('genreManagementget request hit');
 
-  if (req.session.loggedin && req.session.role === 'admin') {
+  if (req.session.loggedin && req.session.role === 'admin' || req.session.role === 'librarian') {
     // Fetch genres from genre table
     connection.query('SELECT * FROM genre WHERE is_deleted = 0', function(error, genres, fields) {
       if (error) throw error;
