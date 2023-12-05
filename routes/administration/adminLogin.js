@@ -1,20 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
 const bcrypt = require('bcrypt');
-
-// Create a MySQL connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'do2lKjv0lMD86OGT',
-  database: 'library_managment_system'
-});
-// Connect to the MySQL database
-connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to the MySQL database.');
- });
+const connection = require('../../db.js');
 
  router.get('/', function(req, res) {
   console.log('adminLogin get request hit');
