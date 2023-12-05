@@ -52,7 +52,7 @@ const cacheMiddleware = (req, res, next) => {
 
 // Route to render books.ejs
 router.get('/', cacheMiddleware, function(req, res) {
-  res.render('books', { loggedIn: req.session.loggedin,books: res.locals.books });
+  res.render('books', { loggedIn: req.session.loggedin,books: res.locals.books, cartCount: req.session.cartCount || 0 });
 });
 
 //endpoint for handling the reserve button
@@ -86,11 +86,13 @@ router.post('/reserve', function(req, res) {
         // If the cart exist push book_id
         if (req.session.cart) {
           req.session.cart.push(book_id);
-          res.json({status: 'success'});
+          req.session.cartCount = (req.session.cartCount || 0) + 1;
+          res.json({status: 'success',  cartCount: req.session.cartCount});
         } else { //if the cart doesn't exist , initialize it and add the book_id
           req.session.cart = [book_id];
+          req.session.cartCount = 1;
           console.log("First element added of book_id:"+ req.session.cart + "no. of copies are: " + no_of_copies);
-          res.json({status: 'success'});
+          res.json({status: 'success',  cartCount: req.session.cartCount});
         }
       } else { //if the query returned a result, this means that the user have an active borrow and cannot borrow again
         res.json({status: 'two_borrows'});

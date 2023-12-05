@@ -162,7 +162,9 @@ h1::after {
   width: 100%;
   max-width: 85% !important;
 }
-
+.col-md-2{
+  margin-bottom: 10px;
+}
 /* Style the book images */
 .dynamic-carousel img {
   height: 155px;
@@ -194,6 +196,8 @@ border: none !important;
   height: 17em;
 }
 }
+
+
 .dynamic-carousel h5{
   font-size: 16.5px;
   font-style: italic;
@@ -217,9 +221,14 @@ border: none !important;
   justify-content: center;
   margin-bottom: 5px;
 }
+.dynamic-carousel #button-box{
+  justify-content: center;
+}
+
 .btn{
   background-color: #727c57 ;
   border-color: #727c57;
+  color: white;
 }
 .btn:hover{
   background-color: #2d3c1f;
@@ -244,14 +253,6 @@ border: none !important;
 .carousel-control-next-icon {
   font-size: 30px;
 }
-
-/* Style the book images ??
-#bookCarousel img {
-  height: 300px;
-  object-fit: cover;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}*/
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -303,6 +304,25 @@ border: none !important;
 .carousel-indicators {
   display: none;
 }
+
+#button-box {
+    display: flex !important;
+    flex-direction: row;
+  }
+
+  @media (max-width: 1250px) {
+    #button-box {
+      flex-direction: column;
+      font-size: 9px;
+    }
+    a.btn.reserve-form.ml-2 {
+      font-size: 11px;
+    }
+  }
+
+
+
+
 
 /*--------------------------------------------------------------
 # Preview Modal

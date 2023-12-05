@@ -3,29 +3,27 @@ const router = express.Router();
 const connection = require('../db.js');
 
 router.get('/', function(req, res) {
-    // Initialize the cart if it'snot set before
-    if (!req.session.cart) {
-      req.session.cart = [];
-    }
-    // Check if the cart is empty
-    if (req.session.cart.length === 0) {
-      // Render the checkout page with an empty list of books
-      res.render('checkout', { loggedIn: req.session.loggedin, books: [] });
-    } else {
-      // Convert the array of book_ids to a string
-      const bookIds = req.session.cart.join(',');
+  // Initialize the cart if it's not set before
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
 
-      // Query the database
-      connection.query(`SELECT book_id,title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
-        if (error) {
-          res.status(500).send('Internal Server Error');
-        } else {
-          // Render the checkout page with the book data
-          res.render('checkout', { loggedIn: req.session.loggedin, books: results });
-        }
-      });
-    }
-  });
+  if (req.session.cart.length === 0) {
+    // If the cart is empty, render the checkout page with an empty list of books
+    res.render('checkout', { loggedIn: req.session.loggedin, books: [], cartCount: 0 });
+  } else {
+    const bookIds = req.session.cart.join(',');
+
+    connection.query(`SELECT book_id,title, file_path FROM book WHERE book_id IN (${bookIds})`, function(error, results, fields) {
+      if (error) {
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.render('checkout', { loggedIn: req.session.loggedin, books: results, cartCount: req.session.cartCount });
+      }
+    });
+  }
+});
+
 
 
   router.post('/borrow', function(req, res) {
@@ -81,19 +79,18 @@ router.get('/', function(req, res) {
     });
   });
 
-router.post('/delete', function(req, res) {
-
+  router.post('/delete', function(req, res) {
     const bookIdToDelete = req.body.book_id;
     const index = req.session.cart.indexOf(bookIdToDelete);
     if (index !== -1) {
-        // Remove the book ID from the cart array
-        req.session.cart.splice(index, 1);
-        res.status(200).send({ success: true });
+      // Remove the book ID from the cart array
+      req.session.cart.splice(index, 1);
+      // Decrement the cart count in the session
+      req.session.cartCount = req.session.cartCount > 1 ? req.session.cartCount - 1 : 0;
+      res.status(200).send({ success: true,cartCount: req.session.cartCount || 0 });
     } else {
-        res.status(404).send({ success: false, message: 'Book ID not found in cart' });
+      res.status(404).send({ success: false, message: 'Book ID not found in cart' });
     }
-});
-
-
+  });
 
 module.exports = router;
