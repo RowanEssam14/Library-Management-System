@@ -71,11 +71,13 @@
                       <tr>
                         <td><%= user.library_id %></td>
                         <td><%= user.role_name %></td>
-                        <td>
-                          <button class="btn btn-link edit-btn" data-toggle="tooltip" title="Edit" data-libraryid="<%= user.library_id %>" data-roleid="<%= user.role_id %>" >
-                            <i class="fas fa-edit"></i>
-                          </button>
-                      </td>
+                        <% if (userRole === 'admin') { %>
+                          <td>
+                            <button class="btn btn-link edit-btn" data-toggle="tooltip" title="Edit" data-libraryid="<%= user.library_id %>" data-roleid="<%= user.role_id %>" >
+                              <i class="fas fa-edit"></i>
+                            </button>
+                          </td>
+                        <% } %>
                         <td>
                           <button class="btn btn-link change-password-btn" data-toggle="tooltip" title="Generate New Password" data-userid="<%= user.user_id %>" data-libraryid="<%= user.library_id %>">
                           <i class="fas fa-key"></i>

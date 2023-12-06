@@ -18,7 +18,7 @@ router.get('/:id', function(req, res) {
   let id = req.params.id;
   connection.query(sql, [id], function(error, results, fields) {
     if (error) throw error;
-    res.render('bookData', { books: results ,  loggedIn: req.session.loggedin});
+    res.render('bookData', { books: results ,  loggedIn: req.session.loggedin, cartCount: req.session.cartCount || 0});
   });
 });
 
@@ -38,7 +38,7 @@ router.get('/:id/preview', function(req, res) {
       const totalPages = pdfDoc.getPageCount();
 
       // Remove extra pages
-      for (let i = totalPages - 1; i >= 10; i--) {
+      for (let i = totalPages - 1; i >= 15; i--) {
         pdfDoc.removePage(i);
       }
 

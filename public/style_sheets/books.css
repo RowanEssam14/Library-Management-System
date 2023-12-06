@@ -11,7 +11,7 @@ html,body {
   font-weight: 300;
   font-size: 20px;
   text-rendering: optimizeLegibility;
-  background-color: antiquewhite;
+  background-color: #F6EADA;
 }
 /*--------------------------------------------------------------
 # hero
@@ -27,11 +27,9 @@ html,body {
 # Navbar
 --------------------------------------------------------------*/
 .navbar{
-  background-color: #66523a;
+  background-color: #6c5c4d;
 
 }
-
-
 div.container-fluid{
   padding:0px;
   width: 100%;
@@ -47,24 +45,24 @@ div#navbarSupportedContent{
   display: flex;
   justify-content: space-between;
   width: 100%;
-  color:antiquewhite;
+  color:#e1dad2;
 }
 .navbar .nav-link{
-  color:antiquewhite;
+  color:#e1dad2;
 }
 .navbar img{
   width: 34px;
   height:43px;
   margin-left: 15px;
   margin-right: 15px;
-  color:antiquewhite;
+  color:#e1dad2;
 }
 .navbar-brand {
   font-family: 'Montserrat';
   font-size: larger;
   font-weight: 700;
   padding-left:35px;
-  color: antiquewhite;
+  color: #e1dad2;
 }
 .navbar button.navbar-toggler{
 margin-right: 25px;
@@ -72,40 +70,6 @@ padding:4px 4px;
 }
 .dropdown-menu{
   min-width: 8.5rem;
-}
-
-/*--------------------------------------------------------------
-# Search bar
---------------------------------------------------------------*/
-.container.search-bar{
-  margin-top: 140px;
-}
-.search-form {
-  display: flex;
-  justify-content: center;
-}
-
-.input-group {
-  width: 100%;
-  max-width: 600px;
-}
-
-.search-bar .btn-outline-secondary {
- border-radius: 0px !important;
- border: 1px solid #ced4da;
-}
-
-.dropdown-menu {
-  min-width: 0;
-}
-.search-bar #searchButton{
-  border-radius: 0px;
-  background-color: #727c57;
-  color: white;
-  padding: 7.5px 20px;
-}
-.search-bar .dropdown-toggle{
-  background-color: transparent;
 }
 
 /*--------------------------------------------------------------
@@ -118,26 +82,25 @@ padding:4px 4px;
   justify-content: center; /* vertically center the child elements */
   max-width: 100%;
   margin: 0px auto;
-  padding-top: 45px ;
+  padding-top: 222px ;
   padding-bottom: 165px;
   padding-left: 0px;
   padding-right: 0px;
 }
 .book.container.reverse-background{
-  background-color: #66523a;
+  background-color: #6c5c4d;
 }
 .book.container.reverse-background h1{
-  color: antiquewhite;
+  color: #e1dad2;
 }
  h1{
     color: #000000ba;
     font-size: 60px;
     font-weight: 900;
-    font-style: italic;
     padding-bottom: 0px;
     text-align: center;
     position: relative;
-    margin-bottom: 35px;
+    margin-bottom: 50px;
     margin-left:60px ;
     margin-right: 60px;
     font-family: 'Noto Serif', serif;
@@ -154,7 +117,7 @@ h1::after {
 	background: #727c57;
 	left: 0;
 	right: 0;
-	bottom: -20px;
+	bottom: -10px;
   margin: auto;
 }
 
@@ -184,6 +147,9 @@ h1::after {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  background: linear-gradient(#6c5c4d 75%, transparent 25%);
+}
+.book.container.reverse-background .img-wrapper{
   background: linear-gradient(#e1dad2 75%, transparent 25%);
 }
 .card .card-img-top  {
@@ -200,8 +166,7 @@ border: none !important;
 
 .dynamic-carousel h5{
   font-size: 16.5px;
-  font-style: italic;
-  font-weight: 600;
+  font-weight: 800;
   font-family: 'DM Serif Display', serif;
   text-transform: capitalize;
 }

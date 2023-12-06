@@ -13,7 +13,7 @@ const connection = require('../../db.js');
           if (req.xhr) { // If the request is an AJAX request
             res.json({ user: users, roles: roles }); // Send JSON data
           } else {
-            res.render('administration/adminInterface', { user: users, roles: roles }); // Render the view
+            res.render('administration/adminInterface', { user: users, roles: roles, userRole: req.session.role}); // Render the view
           }
         });
       });
@@ -25,7 +25,7 @@ const connection = require('../../db.js');
           if (req.xhr) { // If the request is an AJAX request
             res.json({ user: users, roles: roles }); // Send JSON data
           } else {
-            res.render('administration/adminInterface', { user: users, roles: roles }); // Render the view
+            res.render('administration/adminInterface', { user: users, roles: roles, userRole: req.session.role }); // Render the view
           }
         });
       });

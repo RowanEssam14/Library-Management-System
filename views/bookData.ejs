@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-md navbar-expand-lg fixed-top navbar-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="/assets/icons8-open-book-50.svg" alt="" width="30" height="24">
+          <img src="/assets/icons8-open-book-50-white.svg" alt="" width="30" height="24">
           Book Worms
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
               <a class="nav-link" aria-current="page" href="http://localhost:3300/controller/index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Books</a>
+              <a class="nav-link" href="http://localhost:3300/books">Books</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="http://localhost:3300/controller/about">About</a>
@@ -46,7 +46,9 @@
                 <a class="nav-link" href="http://localhost:3300/userLogin/Logout">Logout</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cart</a>
+                <a class="nav-link" href="http://localhost:3300/checkout">
+                  <i class="fas fa-shopping-cart"></i> <span id="cart-counter"><%= cartCount %></span>
+                </a>
               </li>
             <% } else { %>
               <li class="nav-item dropdown">

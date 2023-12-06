@@ -24,8 +24,6 @@ router.get('/', function(req, res) {
   }
 });
 
-
-
   router.post('/borrow', function(req, res) {
 
     const borrowDate = req.body.date;
