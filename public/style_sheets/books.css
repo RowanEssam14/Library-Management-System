@@ -37,6 +37,9 @@ div#navbarSupportedContent{
 .navbar .nav-link{
   color:#e1dad2;
 }
+.navbar ul li a:hover{
+  color: #2d3c1f
+ }
 .navbar img{
   width: 34px;
   height:43px;
@@ -173,6 +176,7 @@ border: none !important;
   border-color:#727c57;
   justify-content: center;
   margin-bottom: 5px;
+  padding: 5px 9px;
 }
 .dynamic-carousel #button-box{
   justify-content: center;
@@ -190,10 +194,38 @@ border: none !important;
 
 .carousel-item {
   text-align: center;
-  width: 100%; /* Adjust the width of the items as needed */
-  max-width: none; /* Remove the max-width property */
+  width: 100%;
+  max-width: none;
+}
+.card-body{
+  margin-top: 13px;
+}
+.card-body .fas.fa-eye{
+  align-self: center;
+}
+.card-body .btn.reserve-form{
+  margin-right: 1.3px;
+}
+.card-body .preview-btn{
+  margin-left: 1.3px;
 }
 
+@media screen and (min-width: 274px) and (max-width: 766px) {
+
+  .dynamic-carousel .btn{
+    max-width: 238px;
+    align-self: center;
+    width: -webkit-fill-available;
+  }
+  .dynamic-carousel img {
+    height: 210px;
+  }
+  .card-body {
+    margin-top: 0px !important;
+    padding-top: 0px;
+  }
+
+}
 
 
 .carousel-control-prev,

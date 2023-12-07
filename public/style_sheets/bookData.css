@@ -139,7 +139,10 @@ min-width: 8.5rem;
     border-color:#727c57;
     margin: 3px 0px;
     width: 40%;
-
+}
+.btn:hover{
+    background-color:#2d3c1f;
+    border-color:#2d3c1f;
 }
 /*--------------------------------------------------------------
 # Footer

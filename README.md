@@ -11,6 +11,9 @@ This guide will walk you through the steps to set up and run the application for
 
 1. **Start Apache and MySQL on XAMPP**: Open XAMPP and start the Apache and MySQL services.
 2. **Import the Database**: Click on the ‘Admin’ button next to MySQL on XAMPP, which will open phpMyAdmin in your browser. Create a new database named `library_managment_system`. Then, import the `library_managment_system.sql` file located at the specified path into this database.
+
+   **Important Note**: The default password for phpMyAdmin is an empty string (`""`). However, if you have previously installed XAMPP on your device and changed the default password, you will need to update the password in the `db.js` file from `""` to your own password.
+
 3. **Open the Project**: Open Visual Studio Code and navigate to the 'WebProject' directory of the project.
 4. **Install Dependencies**: Open a terminal in Visual Studio Code and run the following command to install the project dependencies:
     ```
