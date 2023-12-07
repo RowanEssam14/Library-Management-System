@@ -17,8 +17,8 @@
   <div class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-expand-lg fixed-top navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="/assets/icons8-open-book-50.svg" alt="" width="30" height="24">
+        <a class="navbar-brand" href="http://localhost:3300/controller/index">
+          <img src="/assets/svg/icons8-open-book-50.svg" alt="" width="30" height="24">
           Book Worms
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,11 +36,11 @@
               <a class="nav-link" href="http://localhost:3300/controller/about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="http://localhost:3300/controller/contact">Contact</a>
+              <a class="nav-link active" href="#">Contact</a>
             </li>
             <% if (loggedIn) { %>
               <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="http://localhost:3300/userLogin/Logout">Logout</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="http://localhost:3300/checkout">
@@ -58,8 +58,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="http://localhost:3300/userLogin">User</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Admin</a></li>
-                  <li><a class="dropdown-item" href="#">Librarian</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/adminLogin">Admin</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/librarianLogin">Librarian</a></li>
                 </ul>
               </li>
             <% } %>
@@ -85,7 +85,6 @@
           <div class="container embed-responsive embed-responsive-16by9">
             <iframe class = "responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14031.850792424369!2d-73.986616!3d40.73811!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2589a018531e3%3A0xb9df1f7387a94119!2sGoogle!5e0!3m2!1sen!2sus!4v1607898122970!5m2!1sen!2sus" frameborder="0" allowfullscreen=""></iframe>
           </div>
-          
           <p class="text-center">123 Main St, New York, NY 10001</p>
         </div>
       </div>
@@ -96,28 +95,28 @@
       <div class="row justify-content-around d-flex justify-content-center ">
         <div class="col-md-4 col-sm-12" id="firstcol">
           <ul class="list-unstyled">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="./about.html">About</a></li>
+            <li><a href="http://localhost:3300/controller/index">Home</a></li>
+            <li><a href="http://localhost:3300/books">Books</a></li>
+            <li><a href="http://localhost:3300/controller/about">About</a></li>
           </ul>
         </div>
         <div class="col-md-4  col-sm-12" id="secondcol">
-          <img src="/assets/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
+          <img src="/assets/svg/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
           <p id="brand-name"><strong>Book Worms</strong> </p>
         </div>
         <div class="col-md-4 col-sm-12" id="thirdcol">
           <ul class="list-unstyled">
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Register</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="http://localhost:3300/userLogin">Login</a></li>
+            <li><a href="http://localhost:3300/controller/register">Register</a></li>
+            <li><a href="http://localhost:3300/controller/contact">Contact</a></li>
           </ul>
         </div>
       </div>
     </div>
   </footer>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/b042d509f8.js" crossorigin="anonymous"></script>
-  
+
 </body>
 </html>

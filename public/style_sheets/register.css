@@ -1,18 +1,13 @@
 :root {
     scroll-behavior: smooth;
   }
-  
+
   html,body {
-    
     margin: 0;
     padding: 0;
-    /* background-color: #fff; */
     color: #555;
     font-family: 'Montserrat', sans-serif;
-    /* font-weight: 300;
-    font-size: 20px; */
     text-rendering: optimizeLegibility;
-    
 }
 /*--------------------------------------------------------------
 # Navbar
@@ -62,14 +57,13 @@ div#navbarSupportedContent{
 .register .row{
     margin-top: 67px;
     padding: 50px;
-   
 }
 .register .col-md-6{
     padding-bottom: 20px;
 }
 .register{
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh; /* These two lines are counted as one :-)       */
+    min-height: 100vh; /* These two lines are counted as one */
     display: flex;
     align-items: center;
 }
@@ -109,8 +103,7 @@ div#navbarSupportedContent{
     font-weight: 900;
     margin:0 5px 0 -15px;
     color: #727c57;
-    
-  } 
+  }
   .about .img-fluid{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -134,7 +127,6 @@ footer {
     padding-right: 100px;
     padding: 30px 0px 30px 0px;
   }
-  
   footer .col-sm-12{
     display:flex;
     justify-content: center ;

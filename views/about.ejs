@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-md navbar-expand-lg fixed-top navbar-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="http://localhost:3300/controller/index">
-          <img src="/assets/icons8-open-book-50.svg" alt="" width="30" height="24">
+          <img src="/assets/svg/icons8-open-book-50.svg" alt="" width="30" height="24">
           Book Worms
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
               <a class="nav-link" href="http://localhost:3300/books">Books</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="http://localhost:3300/controller/about">About</a>
+              <a class="nav-link active" href="#">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="http://localhost:3300/controller/contact">Contact</a>
@@ -59,8 +59,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="http://localhost:3300/userLogin">User</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Admin</a></li>
-                  <li><a class="dropdown-item" href="#">Librarian</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/adminLogin">Admin</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/librarianLogin">Librarian</a></li>
                 </ul>
               </li>
             <% } %>
@@ -82,7 +82,7 @@
                   </ul>
                 </div>
                 <div class="col-md-6">
-                    <img src="/assets/vision2-resized.jpg" alt="photo" class="img-fluid">
+                    <img src="/assets/about/vision2-resized.jpg" alt="photo" class="img-fluid">
                 </div>
             </div>
             <div class="row reversed-row" >
@@ -95,7 +95,7 @@
                   </ul>
                 </div>
                 <div class="col-md-6">
-                    <img src="/assets/mission2.jpg" alt="photo" class="img-fluid">
+                    <img src="/assets/about/mission2.jpg" alt="photo" class="img-fluid">
                 </div>
             </div>
             <div class="row " >
@@ -108,7 +108,7 @@
                   </ul>
                 </div>
                 <div class="col-md-6">
-                    <img src="/assets/stategy1-resize.jpg" alt = "photo" class="img-fluid">
+                    <img src="/assets/about/stategy1-resize.jpg" alt = "photo" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -125,12 +125,12 @@
             </ul>
           </div>
           <div class="col-md-4  col-sm-12" id="secondcol">
-            <img src="/assets/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
+            <img src="/assets/svg/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
             <p id="brand-name"><strong>Book Worms</strong> </p>
           </div>
           <div class="col-md-4 col-sm-12" id="thirdcol">
             <ul class="list-unstyled">
-              <li><a href="#">Sign Up</a></li>
+              <li><a href="http://localhost:3300/userLogin">Login</a></li>
               <li><a href="http://localhost:3300/controller/register">Register</a></li>
               <li><a href="http://localhost:3300/controller/contact">Contact</a></li>
             </ul>

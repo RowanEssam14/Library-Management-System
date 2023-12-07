@@ -3,17 +3,11 @@ scroll-behavior: smooth;
 }
 
 html,body {
-
 margin: 0;
 padding: 0;
 height: 100%;
-/* background-color: #fff; */
 color: #555;
 font-family: 'Montserrat', sans-serif;
-
-
-font-weight: 300;
-font-size: 20px;
 text-rendering: optimizeLegibility;
 background-color: #f6eada;
 
@@ -40,24 +34,24 @@ padding-right: 7px;
 display: flex;
 justify-content: space-between;
 width: 100%;
-color:#f6eada;
+color:#e1dad2;
 }
 .navbar .nav-link{
-color:#f6eada;
+color:#e1dad2;
 }
 .navbar img{
 width: 34px;
 height:43px;
 margin-left: 15px;
 margin-right: 15px;
-color:#f6eada;
+color:#e1dad2;
 }
 .navbar-brand {
 font-family: 'Montserrat';
 font-size: larger;
 font-weight: 700;
 padding-left:35px;
-color: #f6eada;
+color: #e1dad2;
 }
 .navbar button.navbar-toggler{
 margin-right: 25px;
@@ -155,11 +149,11 @@ footer {
     min-height: 100px;
     display: flex;
     justify-content: space-between;
-    background-color: #66523a;
+    background-color: #6c5c4d;
   }
   footer a{
     text-decoration: none;
-    color:#f6eada;
+    color:#e1dad2;
   }
   footer div.container{
     padding-left: 100px;
@@ -187,7 +181,7 @@ footer {
     height: 48px;
   }
   footer #brand-name{
-    color:#f6eada;
+    color:#e1dad2;
   }
 
 /*--------------------------------------------------------------

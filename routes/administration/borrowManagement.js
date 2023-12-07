@@ -64,6 +64,14 @@ router.post('/addBorrow', function(req, res) {
                       if (error) {
                         console.error(error);
                         res.send({success: false, message: 'Database error'});
+                      } else {
+                        // Decrement the number of copies for each book after successful insert
+                        connection.query('UPDATE book SET no_of_copies = no_of_copies - 1 WHERE book_id = ?', [bookID], function(error, result) {
+                          if (error) {
+                            console.error(error);
+                            res.send({success: false, message: 'Database error'});
+                          }
+                        });
                       }
                     });
                   });
@@ -83,6 +91,7 @@ router.post('/addBorrow', function(req, res) {
     }
   });
 });
+
 
 router.post('/update',function(req,res){
 
@@ -134,24 +143,55 @@ router.post('/update',function(req,res){
               });
             }
 
-            // Delete all existing records for the given borrow_id in the book_borrow table
-            connection.query('DELETE FROM book_borrow WHERE borrow_id = ?', [borrowID], function(error, result) {
+            // Store the book_ids values that will be deleted
+            connection.query('SELECT book_id FROM book_borrow WHERE borrow_id = ?', [borrowID], function(error, results) {
                 if (error) {
                     console.error(error);
                     res.send({success: false, message: 'Database error'});
                 } else {
-                    // After deleting the old records, insert the new ones
-                    bookIDs.forEach(function(bookID) {
-                        connection.query('INSERT INTO book_borrow (borrow_id, book_id) VALUES (?, ?)', [borrowID, bookID], function(error, result) {
-                            if (error) {
-                                console.error(error);
-                                res.send({success: false, message: 'Database error'});
-                            }
-                        });
-                    });
+                    const deletedBookIDs = results.map(result => result.book_id);
+                    console.log("Deleted book IDs: " + deletedBookIDs);
 
-                    // Send the success response after all the new records have been inserted
-                    res.send({success: true});
+                    // Delete all existing records for the given borrow_id in the book_borrow table
+                    connection.query('DELETE FROM book_borrow WHERE borrow_id = ?', [borrowID], function(error, result) {
+                        if (error) {
+                            console.error(error);
+                            res.send({success: false, message: 'Database error'});
+                        } else {
+                            // After deleting the old records, increment the number of copies for each deleted book
+                            deletedBookIDs.forEach(function(bookID) {
+                                connection.query('UPDATE book SET no_of_copies = no_of_copies + 1 WHERE book_id = ?', [bookID], function(error, result) {
+                                    if (error) {
+                                        console.error(error);
+                                        res.send({success: false, message: 'Database error'});
+                                    }
+                                });
+                            });
+
+                            // After deleting the old records, insert the new ones
+                            bookIDs.forEach(function(bookID) {
+                                connection.query('INSERT INTO book_borrow (borrow_id, book_id) VALUES (?, ?)', [borrowID, bookID], function(error, result) {
+                                    if (error) {
+                                        console.error(error);
+                                        res.send({success: false, message: 'Database error'});
+                                    }
+                                });
+                            });
+
+                            // Decrement the number of copies for each book after successful update
+                            bookIDs.forEach(function(bookID) {
+                                connection.query('UPDATE book SET no_of_copies = no_of_copies - 1 WHERE book_id = ?', [bookID], function(error, result) {
+                                    if (error) {
+                                        console.error(error);
+                                        res.send({success: false, message: 'Database error'});
+                                    }
+                                });
+                            });
+
+                            // Send the success response after all the new records have been inserted
+                            res.send({success: true});
+                        }
+                    });
                 }
             });
           }
@@ -162,8 +202,6 @@ router.post('/update',function(req,res){
     }
   });
 });
-
-
 
 router.delete('/delete/:id', function(req, res) {
   const borrowID = req.params.id;

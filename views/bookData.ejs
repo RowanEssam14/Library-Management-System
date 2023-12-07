@@ -20,8 +20,8 @@
   <div class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-expand-lg fixed-top navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="/assets/icons8-open-book-50-white.svg" alt="" width="30" height="24">
+        <a class="navbar-brand" href="http://localhost:3300/controller/index">
+          <img src="/assets/svg/icons8-open-book-50-white.svg" alt="" width="30" height="24">
           Book Worms
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,8 +58,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="http://localhost:3300/userLogin">User</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Admin</a></li>
-                  <li><a class="dropdown-item" href="#">Librarian</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/adminLogin">Admin</a></li>
+                  <li><a class="dropdown-item" href="http://localhost:3300/librarianLogin">Librarian</a></li>
                 </ul>
               </li>
             <% } %>
@@ -134,20 +134,20 @@
       <div class="row justify-content-around d-flex justify-content-center ">
         <div class="col-md-4 col-sm-12" id="firstcol">
           <ul class="list-unstyled">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="./about.html">About</a></li>
+            <li><a href="http://localhost:3300/controller/index">Home</a></li>
+            <li><a href="http://localhost:3300/books">Books</a></li>
+            <li><a href="http://localhost:3300/controller/about">About</a></li>
           </ul>
         </div>
         <div class="col-md-4  col-sm-12" id="secondcol">
-          <img src="/assets/icons8-open-book-50.svg" alt="Brand logo" id="brand-icon">
+          <img src="/assets/svg/icons8-open-book-50-white.svg" alt="Brand logo" id="brand-icon">
           <p id="brand-name"><strong>Book Worms</strong> </p>
         </div>
         <div class="col-md-4 col-sm-12" id="thirdcol">
           <ul class="list-unstyled">
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Register</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="http://localhost:3300/userLogin">Login</a></li>
+            <li><a href="http://localhost:3300/controller/register">Register</a></li>
+            <li><a href="http://localhost:3300/controller/contact">Contact</a></li>
           </ul>
         </div>
       </div>

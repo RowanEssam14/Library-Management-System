@@ -1,26 +1,20 @@
 :root {
     scroll-behavior: smooth;
   }
-  
+
   html,body {
-    
+
     margin: 0;
     padding: 0;
-    /* background-color: #fff; */
     color: #555;
     font-family: 'Montserrat', sans-serif;
-    /* font-weight: 300;
-    font-size: 20px; */
     text-rendering: optimizeLegibility;
-    
-    
   }
   /*--------------------------------------------------------------
   # Navbar
   --------------------------------------------------------------*/
   .navbar{
     background-color: #e1dad2;
-  
   }
   div.container-fluid{
     padding:0px;
@@ -60,7 +54,6 @@
   /*--------------------------------------------------------------
   # Contact
   --------------------------------------------------------------*/
-  
   .contact{
     min-height: 100vh;
     align-items: center;
@@ -85,10 +78,7 @@
     font-size: 32px;
     color: #2d3c1f;
     font-weight: 300;
-  
-    
   }
-  
   .contact h4 {
     font-size: 24px;
     margin-bottom: 8px;
@@ -101,9 +91,7 @@
   .contact .list-group-item{
     padding: 4px 14px;
   }
-  
   .contact .contact-list{
-  
     list-style-type: none;
   }
   .contact li{
@@ -124,16 +112,14 @@
     font-weight: 900;
     margin:0 5px 0 -15px;
     color: #727c57;
-    
-  } 
+  }
   .container {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 62.5%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    padding-top: 62.5%;
   }
-  
-  /* Then style the iframe to fit in the container div with full height and width */
+  /* styling iframe to fit in the container div with full height and width */
   .responsive-iframe {
     position: absolute;
     top: 0;
