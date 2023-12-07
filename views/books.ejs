@@ -26,7 +26,7 @@
           <img src="/assets/icons8-open-book-50-white.svg" alt="" width="30" height="24">
           Book Worms
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -35,7 +35,7 @@
               <a class="nav-link" aria-current="page" href="http://localhost:3300/controller/index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Books</a>
+              <a class="nav-link active" href="http://localhost:3300/books">Books</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="http://localhost:3300/controller/about">About</a>
@@ -74,8 +74,6 @@
     </nav>
   </div>
 
-
-
   <% Object.keys(books).forEach((genre, index)  => { %>
     <div class="book container <%= index % 2 !== 0 ? 'reverse-background' : '' %>">
       <h1 data-genre="<%= genre %>"><%= genre.replace('_', ' ') %></h1>
@@ -94,7 +92,6 @@
                         <h5 class="card-title"><%= books[genre][j].title %></h5>
                         <div class="d-flex" id="button-box">
                           <a href="#" class="btn reserve-form ml-2" data-book-id="<%= books[genre][j].book_id %>" data-no-of-copies="<%= books[genre][j].no_of_copies %>">Reserve</a>
-
                           <a href="/bookData/<%= books[genre][j].book_id %>/preview" class="btn btn-primary preview-btn" data-toggle="modal" data-target="#pdfPreviewModal">
                             <i class="fas fa-eye"></i>
                           </a>
@@ -188,34 +185,34 @@
     });
   </script>
 
-<script>
-  $('.reserve-form').on('click', function(e) {
-    e.preventDefault(); // Prevent the link from being followed normally
-    var book_id = $(this).data('book-id');
-    var no_of_copies = $(this).data('no-of-copies');
-    $.post('books/reserve', {book_id: book_id, no_of_copies: no_of_copies}, function(response) {
-      if (response.status === 'success') {
-        $('#successModal .modal-body').html('Book has been added to cart successfully!');
-        $('#successModal').modal('show')
-        var cartCounter = $('#cart-counter');
-        cartCounter.text(response.cartCount);
-      } else if (response.status === 'limit_exceeded') {
-        $('#customModel .modal-body').html('You have reached the maximum limit for reservations!<br>You are only allowed to borrow up to ' + response.max_borrow + ' books at a time.');
-        $('#customModel').modal('show');
-      }else if(response.status == 'already_reserved') {
-        $('#customModel .modal-body').html('This book already exists in the cart!');
-        $('#customModel').modal('show');
-      } else if (response.status === 'out_of_stock') {
-        $('#customModel .modal-body').text('Sorry, this book is currently out of stock.')
-        $('#customModel').modal('show');
-      } else if (response.status === 'redirect') {
-        window.location.href = response.url; // Redirect the user to the login page
-      }else if (response.status === 'two_borrows') {
-        $('#customModel .modal-body').html('You cannot have 2 active borrows at the same time!');
-        $('#customModel').modal('show');
-    }});
-  });
-</script>
+  <script>
+    $('.reserve-form').on('click', function(e) {
+      e.preventDefault(); // Prevent the link from being followed normally
+      var book_id = $(this).data('book-id');
+      var no_of_copies = $(this).data('no-of-copies');
+      $.post('books/reserve', {book_id: book_id, no_of_copies: no_of_copies}, function(response) {
+        if (response.status === 'success') {
+          $('#successModal .modal-body').html('Book has been added to cart successfully!');
+          $('#successModal').modal('show')
+          var cartCounter = $('#cart-counter');
+          cartCounter.text(response.cartCount);
+        } else if (response.status === 'limit_exceeded') {
+          $('#customModel .modal-body').html('You have reached the maximum limit for reservations!<br>You are only allowed to borrow up to ' + response.max_borrow + ' books at a time.');
+          $('#customModel').modal('show');
+        }else if(response.status == 'already_reserved') {
+          $('#customModel .modal-body').html('This book already exists in the cart!');
+          $('#customModel').modal('show');
+        } else if (response.status === 'out_of_stock') {
+          $('#customModel .modal-body').text('Sorry, this book is currently out of stock.')
+          $('#customModel').modal('show');
+        } else if (response.status === 'redirect') {
+          window.location.href = response.url; // Redirect the user to the login page
+        }else if (response.status === 'two_borrows') {
+          $('#customModel .modal-body').html('You cannot have 2 active borrows at the same time!');
+          $('#customModel').modal('show');
+      }});
+    });
+  </script>
 
 
 
