@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'do2lKjv0lMD86OGT', // This is the password, if you have changed in the default settings, please update it.
+  password: '', // This is the password, if you have changed in the default settings, please update it.
   database: 'library_managment_system'
 });
 
