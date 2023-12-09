@@ -254,7 +254,7 @@ CREATE TABLE `borrow` (
 --
 
 INSERT INTO `borrow` (`borrow_id`, `borrower_id`, `librarian_id`, `borrow_date`, `due_date`, `status`, `details`) VALUES
-(51, 47, 42, '2023-12-11', '0000-00-00', 'borrowed', ''),
+(51, 47, 42, '2023-12-11', '2023-12-23', 'borrowed', ''),
 (52, 48, 42, '2023-12-07', '2023-12-21', 'borrowed', ''),
 (53, 49, NULL, '2023-12-08', NULL, 'online_reservation', NULL),
 (54, 50, 42, '2023-11-03', '2023-11-17', 'borrowed', ''),

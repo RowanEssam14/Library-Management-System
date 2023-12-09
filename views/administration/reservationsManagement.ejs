@@ -94,7 +94,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editModalLabel">Edit Author</h5>
+                  <h5 class="modal-title" id="editModalLabel">Edit Reservation</h5>
                   <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                   </button>
@@ -110,7 +110,7 @@
                       <input type="date" class="form-control" id="edit-borrowDate" readonly data-toggle="tooltip" title="This field cannot be edited">
                     </div>
                     <div class="form-group">
-                      <label for="edit-dueDate" class="col-form-label">Due Date:</label>
+                      <label for="edit-dueDate" class="col-form-label required">Due Date:</label>
                       <input type="date" class="form-control" id="edit-dueDate">
                     </div>
                     <div class="form-group">
@@ -192,10 +192,19 @@
 
         $('#submitEdit').on('click', function() {
           console.log('submit edit hit');
-          const dueDate = $('#edit-dueDate').val();
+          const dueDateInput = $('#edit-dueDate');
+          const dueDate = dueDateInput.val();
           const details = $('#edit-details').val();
           const status = $('#edit-status').val();
           const borrowID = $('.edit-btn').data('borrowid');
+
+          // Check if dueDate is '0000-00-00', empty or null
+          if (status == 'borrowed' && !dueDate || dueDate === '0000-00-00') {
+            alert('Error: Due date is invalid. Please enter a valid due date.');
+            dueDateInput.focus(); // Focus on the due date input field
+            return; // Don't submit the form
+          }
+
           // Perform update request
           $.ajax({
             url: '/reservationsManagement/update',

@@ -18,7 +18,7 @@ const connection = require('../../db.js');
         });
       });
     } else if (req.session.role === 'librarian') {
-      connection.query('SELECT * FROM role', (error, roles, fields) => {
+      connection.query('SELECT * FROM role WHERE role_name = "user"', (error, roles, fields) => {
         if (error) throw error;
         connection.query("SELECT user.*, role.role_name, role.max_borrow FROM user INNER JOIN role ON user.role_id = role.role_id WHERE user.is_deleted = 0 AND role.role_name = 'user'", (error, users, fields) => {
           if (error) throw error;
