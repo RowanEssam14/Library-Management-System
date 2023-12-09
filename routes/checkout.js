@@ -71,6 +71,7 @@ router.get('/', function(req, res) {
                     });
                 }
                 req.session.cart = []
+                req.session.cartCount = 0;
                 res.send({success:true});
             });
         });
