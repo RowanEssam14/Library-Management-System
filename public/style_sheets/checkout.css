@@ -52,7 +52,7 @@ div#navbarSupportedContent{
 }
 
 h1{
-    color:antiquewhite;
+    color:#f6eada;
 }
 /*--------------------------------------------------------------
 # Cart & Checkout
@@ -130,7 +130,7 @@ h1{
 }
 .container#empty-cart{
     margin-top: 336px;
-    color: antiquewhite;
+    color: #f6eada;
 }
 .delete-button{
     border: none;

@@ -141,7 +141,7 @@ div#navbarSupportedContent{
 /*end of styling of feature list*/
 .features #reversed-row{
   flex-direction: row-reverse;
-  background-color: antiquewhite;
+  background-color: #f6eada;
 }
 .features #reversed-row h2,.features #reversed-row li{
   color: #2d3c1f ;

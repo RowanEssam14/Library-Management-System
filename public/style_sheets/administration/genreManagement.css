@@ -88,5 +88,5 @@ table thead th, table tbody td {
     font-weight: bold;
 }
 .delete-btn:hover,.edit-btn:hover{
-    color: antiquewhite;
+    color: #f6eada;
 }

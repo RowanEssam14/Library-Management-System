@@ -98,7 +98,7 @@ table thead th, table tbody td {
     font-weight: bold;
 }
 .delete-book-btn:hover,.edit-book-btn:hover,.change-password-btn:hover{
-    color: antiquewhite;
+    color: #f6eada;
 }
 .description-cell, .image-path-cell, .pdf-path-cell {
     max-width: 250px;
